@@ -1,5 +1,5 @@
 import Card from '../MainPageCard/Card.tsx';
-import {cardProperties} from '~/src/index.tsx';
+import {cardProperties} from '../../index.tsx';
 function MainPage({ CardProps }: { CardProps:cardProperties[] }):JSX.Element{
   return(
     <div className="page page--gray page--main">
