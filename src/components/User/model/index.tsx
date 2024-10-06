@@ -1,4 +1,4 @@
-import { createContext, useMemo, useState } from 'react';
+import { createContext, useMemo, useState,FC } from 'react';
 import { UserData, UserDataContext } from '../interfaces';
 import { WithChildren } from '../../../shared/interfaces';
 
@@ -14,7 +14,7 @@ const defaultContextValue: UserDataContext = {
 
 export const UserContext = createContext<UserDataContext>(defaultContextValue);
 
-export const UserContextProvider: React.FC<WithChildren> = ({ children }) => {
+export const UserContextProvider:FC<WithChildren> = ({ children }) => {
   const [userData, setUserData] = useState<UserData>(defaultUserDataValue);
 
   const logout = () => setUserData(defaultUserDataValue);

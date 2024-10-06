@@ -1,5 +1,6 @@
+import * as React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import {MainPage} from '../MainPage/MainPage.tsx';
+import {MainPage} from '../MainPage/MainPage';
 import { LoginPage } from '../Login/LoginPage';
 import { Offer } from '../Offer/Offer';
 import { Favorite } from '../Favorites/Favorite';
@@ -8,7 +9,7 @@ import {cardProperties} from '../../index.tsx';
 import { UserContextProvider } from '../User';
 import { LoggedRoute } from '../LoggedRoute';
 
-export const Main: React.FC = ({mainPageCardInfo} ) => (
+export const Main: React.FC<cardProperties[]> = ({mainPageCardInfo} ) => (
   <UserContextProvider>
 	<BrowserRouter>
 	  <Routes>
