@@ -1,10 +1,8 @@
 import Card from '../MainPageCard/Card.tsx';
-import {cardProperties} from '../../index.tsx';
-type Props = {
-  CardProps: cardProperties[];
-};
+import {cardProperties}from '../../index.tsx';
 
-export const MainPage : React.FC<Props> = ({ CardProps }) => ( 
+
+export const MainPage : JSX.Element = (CardProps: cardProperties[]) => ( 
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
@@ -77,7 +75,7 @@ export const MainPage : React.FC<Props> = ({ CardProps }) => (
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{CardProps[0].NumberOfPlaces} places to stay in Amsterdam</b>
+              <b className="places__found">{CardProps.CardProps.mainPageCardInfo[0].NumberOfPlaces} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -94,10 +92,10 @@ export const MainPage : React.FC<Props> = ({ CardProps }) => (
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card {...CardProps[0]}/>
-                <Card {...CardProps[1]}/>
-                <Card {...CardProps[2]}/>
-                <Card {...CardProps[3]}/>
+                <Card {...CardProps.CardProps.mainPageCardInfo[0]}/>
+                <Card {...CardProps.CardProps.mainPageCardInfo[1]}/>
+                <Card {...CardProps.CardProps.mainPageCardInfo[2]}/>
+                <Card {...CardProps.CardProps.mainPageCardInfo[3]}/>
               </div>
             </section>
             <div className="cities__right-section">

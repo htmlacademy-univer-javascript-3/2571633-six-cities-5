@@ -1,19 +1,18 @@
 import React from 'react';
-
-
 import ReactDOM from 'react-dom/client';
-
 import {Main} from './components/Main/main';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 type cardProperties={
   Premium:boolean;
   Price:number;
   Img:string;
   ApartsmentType:string;
   Description:string;
-  NumberOfPlaces?:number;
+  NumberOfPlaces:number;
 };
 export type {cardProperties};
 
@@ -32,6 +31,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/room.jpg',
     ApartsmentType:'Room',
     Description:'Wood and stone place',
+	NumberOfPlaces:0
   },
 
   {
@@ -40,6 +40,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/apartment-02.jpg',
     ApartsmentType:'Apartment',
     Description:'Canal View Prinsengracht',
+	NumberOfPlaces:0
   },
 
   {
@@ -48,6 +49,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/apartment-03.jpg',
     ApartsmentType:'Apartment',
     Description:'Nice, cozy, warm big bed apartment',
+	NumberOfPlaces:0
   },
 
   {
@@ -56,6 +58,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/room.jpg',
     ApartsmentType:'Room',
     Description:'Wood and stone place',
+	NumberOfPlaces:0
   }];
 export default {mainPageCardInfo} ;
 

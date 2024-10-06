@@ -8,11 +8,7 @@ import {cardProperties} from '../../index.tsx';
 import { UserContextProvider } from '../User';
 import { LoggedRoute } from '../LoggedRoute';
 
-type Props = {
-  mainPageCardInfo: cardProperties[];
-};
-
-export const Main: React.FC<Props> = ({ mainPageCardInfo }) => (
+export const Main: React.FC = (mainPageCardInfo:cardProperties[] ) => (
   <UserContextProvider>
 	<BrowserRouter>
 	  <Routes>
