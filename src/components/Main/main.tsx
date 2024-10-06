@@ -4,7 +4,8 @@ import { LoginPage } from '../Login/LoginPage';
 import { Offer } from '../Offer/Offer';
 import { Favorite } from '../Favorites/Favorite';
 import { Error404 } from '../Error/Error404';
-import {mainPageCardInfo,cardProperties} from '../../index.tsx';
+import {mainPageCardInfo} from '../../index.tsx';
+import {cardProperties} from '../../index.tsx';
 import { UserContextProvider } from '../User';
 import { LoggedRoute } from '../LoggedRoute';
 
