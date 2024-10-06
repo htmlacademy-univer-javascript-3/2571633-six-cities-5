@@ -2,7 +2,7 @@ import Card from '../MainPageCard/Card.tsx';
 import {cardProperties}from '../../index.tsx';
 
 
-export const MainPage : JSX.Element = (CardProps: cardProperties[]) => ( 
+export const MainPage : JSX.Element = ({CardProps}) => ( 
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
