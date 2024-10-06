@@ -15,9 +15,11 @@ export const Main: React.FC<{mainPageCardInfo: cardProperties[]}> = ({mainPageCa
 	  <Routes>
 		<Route path="/LoginPage" element={<LoginPage />} />
 		<Route path="/" element={<MainPage CardProps={mainPageCardInfo} />} />	  		
-		<Route path="/favorites" element={<LoggedRoute>
+		<Route path="/favorites" element={
+			<LoggedRoute>
               <Favorite />
-            </LoggedRoute>} />
+            </LoggedRoute>
+			} />
 		<Route path="/offer/:id" element={<Offer />} />
 		<Route path="*" element={<Error404 />} />
 	  </Routes>
