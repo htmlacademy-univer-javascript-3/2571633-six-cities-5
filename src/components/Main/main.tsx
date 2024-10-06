@@ -9,16 +9,16 @@ import {cardProperties} from '../../index.tsx';
 import { UserContextProvider } from '../User';
 import { LoggedRoute } from '../LoggedRoute';
 
-export const Main: React.FC<{mainPageCardInfo: cardProperties[]}> = ({mainPageCardInfo} ) => (
+export const Main: React.FC<{mainPageCardInfo: cardProperties[]}> = ({mainPageCardInfo}) => (
   <UserContextProvider>
-	<BrowserRouter>
-	  <Routes>
-		<Route path="/LoginPage" element={<LoginPage />} />
-		<Route path="/" element={<MainPage CardProps={mainPageCardInfo} />} />	  		
-		<Route path="/favorites" element={<LoggedRoute><Favorite /></LoggedRoute>} />
-		<Route path="/offer/:id" element={<Offer />} />
-		<Route path="*" element={<Error404 />} />
-	  </Routes>
-	</BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/LoginPage" element={<LoginPage />} />
+        <Route path="/" element={<MainPage CardProps={mainPageCardInfo} />} />
+        <Route path="/favorites" element={<LoggedRoute><Favorite /></LoggedRoute>} />
+        <Route path="/offer/:id" element={<Offer />} />
+        <Route path="*" element={<Error404 />} />
+      </Routes>
+    </BrowserRouter>
   </UserContextProvider>
 );

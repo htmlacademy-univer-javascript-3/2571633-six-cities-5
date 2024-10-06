@@ -31,7 +31,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/room.jpg',
     ApartsmentType:'Room',
     Description:'Wood and stone place',
-	NumberOfPlaces:0
+    NumberOfPlaces:0
   },
 
   {
@@ -40,7 +40,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/apartment-02.jpg',
     ApartsmentType:'Apartment',
     Description:'Canal View Prinsengracht',
-	NumberOfPlaces:0
+    NumberOfPlaces:0
   },
 
   {
@@ -49,7 +49,7 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/apartment-03.jpg',
     ApartsmentType:'Apartment',
     Description:'Nice, cozy, warm big bed apartment',
-	NumberOfPlaces:0
+    NumberOfPlaces:0
   },
 
   {
@@ -58,14 +58,14 @@ const mainPageCardInfo:cardProperties[] = [
     Img:'../markup/Img/room.jpg',
     ApartsmentType:'Room',
     Description:'Wood and stone place',
-	NumberOfPlaces:0
+    NumberOfPlaces:0
   }];
 export default {mainPageCardInfo} ;
 
 root.render(
   <React.StrictMode>
 
-    <Main mainPageCardInfo={mainPageCardInfo}/>	
+    <Main mainPageCardInfo={mainPageCardInfo}/>
 
   </React.StrictMode>
 );

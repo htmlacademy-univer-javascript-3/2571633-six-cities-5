@@ -3,8 +3,8 @@ import Card from '../MainPageCard/Card.tsx';
 import {cardProperties}from '../../index.tsx';
 
 
-export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) => 
- ( 
+export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) =>
+  (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
