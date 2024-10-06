@@ -1,7 +1,10 @@
+import {FC} from 'react';
 import Card from '../MainPageCard/Card.tsx';
-import {cardProperties} from '../../index.tsx';
-function MainPage({ CardProps }: { CardProps:cardProperties[] }):JSX.Element{
-  return(
+import {cardProperties}from '../../index.tsx';
+
+
+export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) =>
+  (
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
@@ -105,5 +108,4 @@ function MainPage({ CardProps }: { CardProps:cardProperties[] }):JSX.Element{
       </main>
     </div>
   );
-}
-export default MainPage;
+
