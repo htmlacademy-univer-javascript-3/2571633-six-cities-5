@@ -1,12 +1,10 @@
 import Card from '../MainPageCard/Card.tsx';
 import {cardProperties} from '../../index.tsx';
-
 type Props = {
   CardProps: cardProperties[];
 };
 
 export const MainPage : React.FC<Props> = ({ CardProps }) => ( 
-
     <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
@@ -110,3 +108,4 @@ export const MainPage : React.FC<Props> = ({ CardProps }) => (
       </main>
     </div>
   );
+

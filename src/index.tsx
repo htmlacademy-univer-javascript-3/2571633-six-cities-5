@@ -2,8 +2,8 @@ import React from 'react';
 
 
 import ReactDOM from 'react-dom/client';
-import {Main} from './components/Main/main';
 
+import {Main} from './components/Main/main';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -61,6 +61,8 @@ export default {mainPageCardInfo} ;
 
 root.render(
   <React.StrictMode>
+
     <Main mainPageCardInfo={mainPageCardInfo}/>	
+
   </React.StrictMode>
 );
