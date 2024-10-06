@@ -1,4 +1,4 @@
-import {cardProperties} from '../../index.tsx';
+import {cardProperties} from '../Main/main.tsx';
 function Card(MainPageCardProps:cardProperties):JSX.Element{
   return(
     <article className="cities__card place-card">
