@@ -34,7 +34,7 @@ function Map(props: MainPageProps): JSX.Element {
   const {offers, selectedPoint} = props;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, "Амстердам");
+  const map = useMap(mapRef, 'Амстердам');
 
   useEffect(() => {
     if (map) {
@@ -57,7 +57,7 @@ function Map(props: MainPageProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offers]);
+  }, [map, offers,selectedPoint]);
 
   return <div style={{height: '500px'}} ref={mapRef}></div>;
 }
