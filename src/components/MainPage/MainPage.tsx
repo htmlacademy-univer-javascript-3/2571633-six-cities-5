@@ -1,6 +1,7 @@
 import {FC} from 'react';
 import OfferList from '../Offer/OfferList';
-
+import Map from '../Map/Map';
+import {City, Points, Point} from '../../types/types';
 type Offer = {
   id: number;
   title: string;
@@ -10,6 +11,8 @@ type Offer = {
   isPremium: boolean;
   previewImage: string;
   NumberOfPlaces: number;
+  latitude: number;
+  longitude:number;
 };
 type MainPageProps = {
   offers: Offer[];
@@ -110,7 +113,9 @@ export const MainPage : FC<MainPageProps> = ({ offers }) =>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} selectedPoint={offers[3]} />
+              </section>
             </div>
           </div>
         </div>
