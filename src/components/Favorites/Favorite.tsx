@@ -258,4 +258,5 @@ export const Favorite = () => (
       </a>
     </footer>
   </div>
+  
 );
