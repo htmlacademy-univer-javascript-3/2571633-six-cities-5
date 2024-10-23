@@ -17,7 +17,6 @@ type Offer = {
 type MainPageProps = {
   offers: Offer[];
 };
-
 export const MainPage : FC<MainPageProps> = ({ offers }) =>
   (
     <div className="page page--gray page--main">
