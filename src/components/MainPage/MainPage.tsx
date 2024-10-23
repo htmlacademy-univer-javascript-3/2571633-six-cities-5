@@ -1,7 +1,6 @@
 import {FC} from 'react';
 import OfferList from '../Offer/OfferList';
 import Map from '../Map/Map';
-import {City, Points, Point} from '../../types/types';
 type Offer = {
   id: number;
   title: string;
