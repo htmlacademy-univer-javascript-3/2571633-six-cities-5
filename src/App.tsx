@@ -13,6 +13,8 @@ type Offer = {
   isPremium: boolean;
   previewImage: string;
   NumberOfPlaces: number;
+  latitude: number;
+  longitude:number;
 };
 
 type AppProps = {
