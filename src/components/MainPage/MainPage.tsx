@@ -1,9 +1,21 @@
 import {FC} from 'react';
-import Card from '../MainPageCard/Card.tsx';
-import {cardProperties}from '../../index.tsx';
+import OfferList from '../Offer/OfferList';
 
+type Offer = {
+  id: number;
+  title: string;
+  price: number;
+  rating: number;
+  type: string;
+  isPremium: boolean;
+  previewImage: string;
+  NumberOfPlaces: number;
+};
+type MainPageProps = {
+  offers: Offer[];
+};
 
-export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) =>
+export const MainPage : FC<MainPageProps> = ({ offers }) =>
   (
     <div className="page page--gray page--main">
       <header className="header">
@@ -77,7 +89,7 @@ export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) =>
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{CardProps[0].NumberOfPlaces} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -94,10 +106,7 @@ export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) =>
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card {...CardProps[0]}/>
-                <Card {...CardProps[1]}/>
-                <Card {...CardProps[2]}/>
-                <Card {...CardProps[3]}/>
+                <OfferList offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">
@@ -108,4 +117,4 @@ export const MainPage : FC<{ CardProps: cardProperties[] }> = ({ CardProps }) =>
       </main>
     </div>
   );
-
+export default MainPage;
