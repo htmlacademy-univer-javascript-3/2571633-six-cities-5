@@ -118,4 +118,3 @@ export const MainPage : FC<MainPageProps> = ({ offers }) =>
     </div>
   );
 export default MainPage;
-
