@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Rating } from '../Rating/Rating';
 type ReviewObject = {
   date: Date;
@@ -44,8 +45,8 @@ export const Review: React.FC<ReviewObject> = ({
         starsMix="reviews__stars"
         mode="compact"
       />
-    <p className="reviews__text">{text}</p>
-    <time className="reviews__time" dateTime={dateToYearMonthDay(date)}>
+      <p className="reviews__text">{text}</p>
+      <time className="reviews__time" dateTime={dateToYearMonthDay(date)}>
         {dateToMonthWordYear(date)}
       </time>
     </div>

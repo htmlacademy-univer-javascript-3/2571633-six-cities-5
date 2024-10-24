@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import classNames from 'classnames';
-
 type RatingProps = {
   rating: number;
   mode?: 'compact' | 'full';

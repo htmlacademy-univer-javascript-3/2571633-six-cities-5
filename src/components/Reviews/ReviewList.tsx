@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import classNames from 'classnames';
 import { Review } from './Review';
 type ReviewObject = {
