@@ -1,36 +1,14 @@
 import { useState } from 'react';
 import OfferCard from './OfferCard';
+import { OfferObject } from '../../types/types';
 
-type Offer = {
-  id: number;
-  title: string;
-  price: number;
-  rating: number;
-  type: string;
-  isPremium: boolean;
-  isFavorite: boolean;
-  NumberOfPlaces: number;
-  previewImage: string;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-};
 
 type OfferListProps = {
-  offers: Offer[];
+  offers: OfferObject[];
+  cardcssname: string;
 };
 
-const OfferList = ({ offers }: OfferListProps) => {
+const OfferList = ({ offers, cardcssname}: OfferListProps) => {
   const [activeOfferId, setActiveOfferId] = useState<number | null>(null);
 
   return (
@@ -41,7 +19,7 @@ const OfferList = ({ offers }: OfferListProps) => {
           onMouseEnter={() => setActiveOfferId(offer.id)}
           onMouseLeave={() => setActiveOfferId(null)}
         >
-          <OfferCard offer={offer} />
+          <OfferCard offer={offer} cardcssname={cardcssname} />
         </div>
       ))}
       <div>{activeOfferId && <p>Active Offer ID: {activeOfferId}</p>}</div>

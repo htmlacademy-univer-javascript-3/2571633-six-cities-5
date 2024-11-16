@@ -3,45 +3,22 @@ import MainPage from './components/MainPage/MainPage';
 import Favorite from './components/Favorites/Favorite';
 import LoginPage from './components/Login/LoginPage';
 import Offer from './components/Offer/Offer';
+import { useAppSelector } from './hooks';
+import { REVIEWERS } from './mock/reviewers';
 
-type Offer = {
-  id: number;
-  title: string;
-  price: number;
-  rating: number;
-  type: string;
-  isPremium: boolean;
-  isFavorite: boolean;
-  NumberOfPlaces: number;
-  previewImage: string;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-};
 
-type AppProps = {
-  offers: Offer[];
-};
-
-export default function App({ offers }: AppProps) {
+export const App: React.FC = () => {
+  const currentCity = useAppSelector((state) => state.currentCity);
+  const offers = useAppSelector((state) => state.offers);
+  const cities = useAppSelector((state) => state.cities);
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<MainPage offers={offers} />} />
+        <Route path="/" element={<MainPage offers={offers} currentCity={currentCity} cities={cities}/>} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/offer/:id" element={<Offer />} />
+        <Route path="/offer/:id" element={<Offer reviews={REVIEWERS} offers={offers} currentCity={currentCity}/>} />
         <Route path="/favorites" element={<Favorite offers={offers} />} />
       </Routes>
     </Router>
   );
-}
+};

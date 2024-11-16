@@ -1,31 +1,8 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
+import { OfferObject, City } from '../../types/types';
 import 'leaflet/dist/leaflet.css';
-type Offer = {
-  id: number;
-  title: string;
-  price: number;
-  rating: number;
-  type: string;
-  isPremium: boolean;
-  isFavorite: boolean;
-  NumberOfPlaces: number;
-  previewImage: string;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-};
 const defaultCustomIcon = new Icon({
   iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
   iconSize: [40, 40],
@@ -38,15 +15,16 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 type MainPageProps = {
-  offers: Offer[];
-  selectedPoint :Offer;
+  offers: OfferObject[];
+  currentCity: City;
+  selectedPoint: OfferObject;
 };
 
 function Map(props: MainPageProps): JSX.Element {
-  const {offers, selectedPoint} = props;
+  const {offers, currentCity,selectedPoint} = props;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, 'Амстердам');
+  const map = useMap(mapRef, currentCity.title);
 
   useEffect(() => {
     if (map) {

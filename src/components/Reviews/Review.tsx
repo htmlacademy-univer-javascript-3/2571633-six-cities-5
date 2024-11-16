@@ -1,16 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Rating } from '../Rating/Rating';
-type ReviewObject = {
-  id: string;
-  date: Date;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-  comment: string;
-  rating: number;
-};
+import { UserReview} from '../../types/types';
+
 export const dateToYearMonthDay = (date: Date) =>
   new Intl.DateTimeFormat('en-CA', {
     year: 'numeric',
@@ -22,7 +13,7 @@ export const dateToMonthWordYear = (date: Date) =>
   new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long' }).format(
     date,
   );
-export const Review: React.FC<ReviewObject> = ({
+export const Review: React.FC<UserReview> = ({
   comment,
   date,
   rating,
@@ -33,7 +24,7 @@ export const Review: React.FC<ReviewObject> = ({
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
         <img
           className="reviews__avatar user__avatar"
-          src={user.avatarUrl}
+          src={user.avatar}
           width="54"
           height="54"
           alt="Reviews avatar"
