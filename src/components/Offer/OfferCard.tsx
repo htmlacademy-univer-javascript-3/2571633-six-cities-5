@@ -6,16 +6,20 @@ import { useState } from 'react';
 type OfferCardProps = {
   offer: OfferObject;
   cardcssname: string;
+  setActiveOffer?: (id: number | null) => void;
 };
 
 export const OfferCard: React.FC<OfferCardProps> = ({
   offer,
-  cardcssname
+  cardcssname,
+  setActiveOffer,
 }) => {
   const [ isActiveCard, setActiveCard ] = useState(false);
   return (
-    <article className={`${cardcssname} place-card`} onMouseOver={() =>
-      setActiveCard(!isActiveCard)}
+    <article className={`${cardcssname} place-card`}
+      onMouseEnter={() => setActiveOffer && setActiveOffer(offer.id)}
+      onMouseLeave={() => setActiveOffer && setActiveOffer(null)}
+      onMouseOver={() => setActiveCard(!isActiveCard)}
     >
       {offer.isPremium && (
         <div className="place-card__mark">

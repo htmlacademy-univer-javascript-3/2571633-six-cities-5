@@ -6,9 +6,10 @@ import { OfferObject } from '../../types/types';
 type OfferListProps = {
   offers: OfferObject[];
   cardcssname: string;
+  setActiveOffer?: (id: number | null) => void;
 };
 
-const OfferList = ({ offers, cardcssname}: OfferListProps) => {
+const OfferList = ({ offers, cardcssname,setActiveOffer}: OfferListProps) => {
   const [activeOfferId, setActiveOfferId] = useState<number | null>(null);
 
   return (
@@ -19,7 +20,7 @@ const OfferList = ({ offers, cardcssname}: OfferListProps) => {
           onMouseEnter={() => setActiveOfferId(offer.id)}
           onMouseLeave={() => setActiveOfferId(null)}
         >
-          <OfferCard offer={offer} cardcssname={cardcssname} />
+          <OfferCard offer={offer} cardcssname={cardcssname} {...(setActiveOffer && {setActiveOffer})}/>
         </div>
       ))}
       <div>{activeOfferId && <p>Active Offer ID: {activeOfferId}</p>}</div>
