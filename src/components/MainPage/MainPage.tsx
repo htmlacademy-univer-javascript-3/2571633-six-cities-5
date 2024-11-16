@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import OfferList from '../Offer/OfferList';
 import { useAppDispatch } from '../../hooks';
-import { OfferObject,AppRoute, City, CardCssNameList, SortName  } from '../../types/types';
+import { OfferObject,AppRoute, City, CardCssNameList, SortName} from '../../types/types';
 import { changeCity } from '../../action';
 import { ListCities } from '../../components/CityList/CityList';
 import { FilterOffer } from '../FilterOffers/FilterOffer';
