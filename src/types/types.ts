@@ -57,7 +57,12 @@ export type UserReview = {
   comment: string;
   date: Date;
 };
-
+export const enum SortName {
+  popular = 'popular',
+  lowToHigh = 'lowToHigh',
+  highToLow = 'highToLow',
+  topRated = 'topRated',
+}
 export type Points = Point[];
 export type State = ReturnType<typeof store.getState>;
 

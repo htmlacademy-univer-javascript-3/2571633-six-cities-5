@@ -5,12 +5,7 @@ import { ReviewList } from '../Reviews/ReviewList';
 //import { offers } from '../../mock/offers';
 import { OtherPlacesNearby } from '../OtherPlacesNearby/OtherPlacesNearby';
 import Map from '../Map/Map';
-import {
-  AppRoute,
-  UserReview,
-  OfferObject,
-  City,
-} from '../../types/types';
+import { AppRoute, UserReview, OfferObject, City } from '../../types/types';
 type OfferProps = {
   reviews: UserReview[];
   offers: OfferObject[];
@@ -192,10 +187,7 @@ export const Offer: React.FC<OfferProps> = ({
                 </p>
               </div>
             </div>
-            <ReviewList
-              reviews={reviews}
-              containerMix="offer__reviews"
-            />
+            <ReviewList reviews={reviews} containerMix="offer__reviews" />
           </div>
         </div>
         <section className="offer__map map">
@@ -203,6 +195,7 @@ export const Offer: React.FC<OfferProps> = ({
             offers={[...offers]}
             selectedPoint={offers[1]}
             currentCity={currentCity}
+            activeOffer={offers[1].id}
           />
         </section>
       </section>
