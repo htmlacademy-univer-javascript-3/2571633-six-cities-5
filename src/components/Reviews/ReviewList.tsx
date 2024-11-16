@@ -1,19 +1,9 @@
 /* eslint-disable react/prop-types */
 import classNames from 'classnames';
 import { Review } from './Review';
-type ReviewObject = {
-  id: string;
-  date: Date;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-  comment: string;
-  rating: number;
-};
+import { UserReview} from '../../types/types';
 type ReviewListProps = {
-  reviews: ReviewObject[];
+  reviews: UserReview[];
   containerMix?: string;
 };
 
