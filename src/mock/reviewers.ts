@@ -6,7 +6,7 @@ export const REVIEWERS = [
       avatar: 'img/avatar-01.jpg',
     },
     rating: 5,
-    text: 'All super',
+    comment: 'All super',
     date: new Date(),
   },
   {
@@ -16,7 +16,7 @@ export const REVIEWERS = [
       avatar: 'img/avatar-02.jpg',
     },
     rating: 1,
-    text: 'All bad',
+    comment: 'All bad',
     date: new Date(),
   },
 ];
