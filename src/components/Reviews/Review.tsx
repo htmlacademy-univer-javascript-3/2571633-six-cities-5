@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import { Rating } from '../Rating/Rating';
 type ReviewObject = {
+  id: string;
   date: Date;
-  text: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
   rating: number;
-  userName: string;
-  userAvatarSrc: string;
 };
 export const dateToYearMonthDay = (date: Date) =>
   new Intl.DateTimeFormat('en-CA', {
@@ -19,24 +23,23 @@ export const dateToMonthWordYear = (date: Date) =>
     date,
   );
 export const Review: React.FC<ReviewObject> = ({
-  text,
+  comment,
   date,
   rating,
-  userName,
-  userAvatarSrc,
+  user
 }) => (
   <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
         <img
           className="reviews__avatar user__avatar"
-          src={userAvatarSrc}
+          src={user.avatarUrl}
           width="54"
           height="54"
           alt="Reviews avatar"
         />
       </div>
-      <span className="reviews__user-name">{userName}</span>
+      <span className="reviews__user-name">{user.name}</span>
     </div>
     <div className="reviews__info">
       <Rating
@@ -45,7 +48,7 @@ export const Review: React.FC<ReviewObject> = ({
         starsMix="reviews__stars"
         mode="compact"
       />
-      <p className="reviews__text">{text}</p>
+      <p className="reviews__text">{comment}</p>
       <time className="reviews__time" dateTime={dateToYearMonthDay(date)}>
         {dateToMonthWordYear(date)}
       </time>

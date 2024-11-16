@@ -2,11 +2,15 @@
 import classNames from 'classnames';
 import { Review } from './Review';
 type ReviewObject = {
+  id: string;
   date: Date;
-  text: string;
+  user: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  comment: string;
   rating: number;
-  userName: string;
-  userAvatarSrc: string;
 };
 type ReviewListProps = {
   reviews: ReviewObject[];

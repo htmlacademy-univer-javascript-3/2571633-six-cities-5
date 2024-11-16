@@ -8,10 +8,22 @@ type Offer = {
   rating: number;
   type: string;
   isPremium: boolean;
-  previewImage: string;
+  isFavorite: boolean;
   NumberOfPlaces: number;
-  latitude: number;
-  longitude:number;
+  previewImage: string;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
 };
 type MainPageProps = {
   offers: Offer[];

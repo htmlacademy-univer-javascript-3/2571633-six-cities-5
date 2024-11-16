@@ -177,10 +177,14 @@ export default function Offer () {
               <ReviewList
                 reviews={[
                   {
-                    userName: 'Max',
-                    userAvatarSrc: 'img/avatar-max.jpg',
+                    id: '1',
+                    user:{
+                      name : 'Max',
+                      avatarUrl: 'img/avatar-max.jpg',
+                      isPro: false
+                    },
                     rating: 3,
-                    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+                    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
                     date: new Date('2024-04-24'),
                   },
                 ]}

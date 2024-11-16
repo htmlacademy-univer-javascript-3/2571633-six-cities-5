@@ -9,10 +9,22 @@ type Offer = {
   rating: number;
   type: string;
   isPremium: boolean;
-  previewImage: string;
+  isFavorite: boolean;
   NumberOfPlaces: number;
-  latitude: number;
-  longitude:number;
+  previewImage: string;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
 };
 const defaultCustomIcon = new Icon({
   iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
@@ -41,8 +53,8 @@ function Map(props: MainPageProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       offers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.latitude,
-          lng: offer.longitude
+          lat: offer.location.latitude,
+          lng: offer.location.longitude
         });
         marker
           .setIcon(
@@ -59,7 +71,7 @@ function Map(props: MainPageProps): JSX.Element {
     }
   }, [map, offers,selectedPoint]);
 
-  return <div style={{height: '500px'}} ref={mapRef}></div>;
+  return <div style={{height: '100%'}} ref={mapRef}></div>;
 }
 
 export default Map;
