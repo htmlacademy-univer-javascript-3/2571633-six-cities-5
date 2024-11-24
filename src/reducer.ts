@@ -1,8 +1,10 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { combineReducers, createReducer } from '@reduxjs/toolkit';
 import { City, OfferObject } from './types/types';
-import { changeCity, AddOffer } from './action';
+import { changeCity, AddOffer, loadOffers } from './action';
+import { offerPage } from './store/offer-data';
 import { CITYLIST } from './mock/cities';
 import { offers } from './mock/offers';
+
 type InitialState = {
   currentCity: City;
   cities: City[];
@@ -24,5 +26,14 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(AddOffer, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
     });
+});
+
+export const rootReducer = combineReducers({
+  Cities: reducer,
+  currentCity: reducer,
+  offerPage: offerPage.reducer,
 });

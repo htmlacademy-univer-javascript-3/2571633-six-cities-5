@@ -47,6 +47,11 @@
     "vite": "4.4.11",
     "vitest": "0.34.6"
   },
+  "eslintConfig": {
+    "rules": {
+      "no-console": "off"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",

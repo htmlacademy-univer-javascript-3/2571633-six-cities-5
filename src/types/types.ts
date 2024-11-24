@@ -4,7 +4,10 @@ export type City = {
   lat: number;
   lng: number;
 };
-
+export type OfferData = {
+  offer: OfferObject[] | null;
+  offerPageStatus: boolean;
+};
 export type Point = {
   title: string;
   lat: number;

@@ -21,9 +21,9 @@ const activeCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 type MainPageProps = {
-  offers: OfferObject[];
+  offers: OfferObject[] | undefined;
   currentCity: City;
-  selectedPoint: OfferObject;
+  selectedPoint: OfferObject | undefined;
   activeOffer: number | null;
 };
 
@@ -41,7 +41,7 @@ function Map(props: MainPageProps): JSX.Element {
         }
       });
 
-      offers.forEach((offer) => {
+      offers?.forEach((offer) => {
         leaflet
           .marker({
             lat: offer.location.latitude,
