@@ -4,7 +4,7 @@ import { OfferObject } from '../../types/types';
 
 
 type OfferListProps = {
-  offers: OfferObject[];
+  offers: OfferObject[] | undefined;
   cardcssname: string;
   setActiveOffer?: (id: number | null) => void;
 };
@@ -14,7 +14,7 @@ const OfferList = ({ offers, cardcssname,setActiveOffer}: OfferListProps) => {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => (
+      {offers?.map((offer) => (
         <div
           key={offer.id}
           onMouseEnter={() => setActiveOfferId(offer.id)}

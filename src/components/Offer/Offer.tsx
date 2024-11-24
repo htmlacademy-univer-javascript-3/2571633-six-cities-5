@@ -8,7 +8,7 @@ import Map from '../Map/Map';
 import { AppRoute, UserReview, OfferObject, City } from '../../types/types';
 type OfferProps = {
   reviews: UserReview[];
-  offers: OfferObject[];
+  offers: OfferObject[] | null;
   currentCity: City;
 };
 
@@ -192,10 +192,10 @@ export const Offer: React.FC<OfferProps> = ({
         </div>
         <section className="offer__map map">
           <Map
-            offers={[...offers]}
-            selectedPoint={offers[1]}
+            offers={offers === null ? undefined : [...offers]}
+            selectedPoint={offers?.[1]}
             currentCity={currentCity}
-            activeOffer={offers[1].id}
+            activeOffer={offers === null ? null : offers?.[1].id}
           />
         </section>
       </section>
