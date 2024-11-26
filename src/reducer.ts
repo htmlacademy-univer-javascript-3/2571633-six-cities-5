@@ -2,6 +2,7 @@ import { combineReducers, createReducer } from '@reduxjs/toolkit';
 import { City, OfferObject } from './types/types';
 import { changeCity, AddOffer, loadOffers } from './action';
 import { offerPage } from './store/offer-data';
+import { user } from './store/user';
 import { CITYLIST } from './mock/cities';
 import { offers } from './mock/offers';
 
@@ -36,4 +37,5 @@ export const rootReducer = combineReducers({
   Cities: reducer,
   currentCity: reducer,
   offerPage: offerPage.reducer,
+  user: user.reducer,
 });
