@@ -1,4 +1,5 @@
 import { store } from '../store';
+import { AuthorizationStatus } from '../const';
 export type City = {
   title: string;
   lat: number;
@@ -7,6 +8,13 @@ export type City = {
 export type OfferData = {
   offer: OfferObject[] | null;
   offerPageStatus: boolean;
+};
+
+export type AuthorizationSlice = {
+  authorizationStatus: AuthorizationStatus;
+  userData: UserAuth | null;
+  postError: boolean;
+  userDataLoadingStatus: boolean;
 };
 export type Point = {
   title: string;
@@ -60,12 +68,27 @@ export type UserReview = {
   comment: string;
   date: Date;
 };
+export type UserObject = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+};
 export const enum SortName {
   popular = 'popular',
   lowToHigh = 'lowToHigh',
   highToLow = 'highToLow',
   topRated = 'topRated',
 }
+
+export type UserAuth = UserObject & {
+  email: string;
+  token: string;
+};
+
+export type LoginAuth = {
+  email: string;
+  password: string;
+};
 export type Points = Point[];
 export type State = ReturnType<typeof store.getState>;
 
