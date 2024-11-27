@@ -24,7 +24,7 @@ type MainPageProps = {
   offers: OfferObject[] | undefined;
   currentCity: City;
   selectedPoint: OfferObject | undefined;
-  activeOffer: number | null;
+  activeOffer: string | null;
 };
 
 function Map(props: MainPageProps): JSX.Element {

@@ -7,7 +7,7 @@ export const REVIEWERS = [
     },
     rating: 5,
     comment: 'All super',
-    date: new Date(),
+    date: '2024-12-2',
   },
   {
     id: 2,
@@ -17,6 +17,6 @@ export const REVIEWERS = [
     },
     rating: 1,
     comment: 'All bad',
-    date: new Date(),
+    date: '2024-12-2',
   },
 ];

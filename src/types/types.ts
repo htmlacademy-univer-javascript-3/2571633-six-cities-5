@@ -6,10 +6,47 @@ export type City = {
   lng: number;
 };
 export type OfferData = {
-  offer: OfferObject[] | null;
+  offer: OfferObject[];
   offerPageStatus: boolean;
 };
-
+export type OfferIdDetailsPage = {
+  offer: OfferIdDetails;
+  OfferIdDetailsPageStatus: boolean;
+  nearbyOffers: OfferObject[];
+  comments: UserReview[];
+};
+export type OfferIdDetails = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+  description: string;
+  bedrooms: number;
+  goods: [string];
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  images: [string];
+  maxAdults: number;
+};
 export type AuthorizationSlice = {
   authorizationStatus: AuthorizationStatus;
   userData: UserAuth | null;
@@ -22,7 +59,7 @@ export type Point = {
   lng: number;
 };
 export type OfferObject = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   rating: number;
@@ -66,7 +103,12 @@ export type UserReview = {
   };
   rating: number;
   comment: string;
-  date: Date;
+  date: string;
+};
+export type UserReviewPost = {
+  rating: number;
+  comment: string;
+  id: string;
 };
 export type UserObject = {
   name: string;

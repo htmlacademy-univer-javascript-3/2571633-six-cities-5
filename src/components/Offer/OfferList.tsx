@@ -6,11 +6,11 @@ import { OfferObject } from '../../types/types';
 type OfferListProps = {
   offers: OfferObject[] | undefined;
   cardcssname: string;
-  setActiveOffer?: (id: number | null) => void;
+  setActiveOffer?: (id: string | null) => void;
 };
 
 const OfferList = ({ offers, cardcssname,setActiveOffer}: OfferListProps) => {
-  const [activeOfferId, setActiveOfferId] = useState<number | null>(null);
+  const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   return (
     <div className="cities__places-list places__list tabs__content">

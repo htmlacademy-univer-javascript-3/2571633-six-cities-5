@@ -3,16 +3,15 @@ import { OfferData } from '../types/types';
 import { fetchOfferObjectAction } from '../api-actions';
 
 const initialState: OfferData = {
-  offer: null,
+  offer: [],
   offerPageStatus: false,
 };
-
 export const offerPage = createSlice({
   name: 'offerPage',
   initialState,
   reducers: {
     unmountOffer: (state) => {
-      state.offer = null;
+      state.offer = [];
     },
   },
   extraReducers(builder) {
@@ -29,4 +28,5 @@ export const offerPage = createSlice({
       });
   },
 });
+
 export const { unmountOffer } = offerPage.actions;

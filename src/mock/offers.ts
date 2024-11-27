@@ -1,98 +1,34 @@
-export const offers = [
-  {
-    id: 1,
-    title: 'Luxury Apartment in Downtown',
-    price: 250,
-    rating: 4.9,
-    type: 'Apartment',
-    isPremium: true,
-    previewImage: 'img/apartment-01.jpg',
-    NumberOfPlaces: 1,
+import { OfferIdDetails } from '../types/types';
+
+export const emptyOffer: OfferIdDetails = {
+  id: '0',
+  title: '',
+  price: 0,
+  type: '',
+  city: {
+    name: '',
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 0,
+      longitude: 0,
       zoom: 0,
     },
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    isFavorite: false,
   },
-  {
-    id: 2,
-    title: 'Cozy House in Suburbs',
-    price: 100,
-    rating: 4.7,
-    type: 'House',
-    isPremium: false,
-    previewImage: 'img/apartment-02.jpg',
-    NumberOfPlaces: 1,
-    location: {
-      latitude: 52.3609553943508,
-      longitude: 4.85309666406198,
-      zoom: 0,
-    },
-    city: {
-      name: 'Paris',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    isFavorite: false,
+  location: {
+    latitude: 0,
+    longitude: 0,
+    zoom: 0,
   },
-  {
-    id: 3,
-    title: 'Stylish Studio in City Center',
-    price: 150,
-    rating: 4.8,
-    type: 'Studio',
-    isPremium: false,
-    previewImage: 'img/studio-01.jpg',
-    NumberOfPlaces: 1,
-    location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
-      zoom: 0,
-    },
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    isFavorite: false,
+  isFavorite: false,
+  isPremium: false,
+  rating: 0,
+  description: '',
+  bedrooms: 0,
+  goods: [''],
+  host: {
+    name: '',
+    avatarUrl: '',
+    isPro: false,
   },
-  {
-    id: 4,
-    title: 'Modern Loft with River View',
-    price: 200,
-    rating: 5.0,
-    type: 'Loft',
-    isPremium: true,
-    previewImage: 'img/studio-01.jpg',
-    NumberOfPlaces: 1,
-    location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
-      zoom: 0,
-    },
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
-      },
-    },
-    isFavorite: false,
-  },
-];
+  images: [''],
+  maxAdults: 0,
+};
