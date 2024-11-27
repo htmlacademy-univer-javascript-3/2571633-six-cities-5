@@ -1,36 +1,36 @@
 import {FC} from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Spinner from '../spinner/spinner.tsx';
+//import Spinner from '../spinner/spinner.tsx';
 import OfferList from '../Offer/OfferList';
-import { useAppDispatch,useAppSelector } from '../../hooks';
-import { AppRoute, City, CardCssNameList, SortName} from '../../types/types';
+import { useAppDispatch } from '../../hooks';
+import { AppRoute, City, CardCssNameList, SortName, OfferObject} from '../../types/types';
 import { changeCity } from '../../action';
 import { ListCities } from '../../components/CityList/CityList';
 import { FilterOffer } from '../FilterOffers/FilterOffer';
-import { getLoadingOfferPage,getOffer } from '../../store/selector';
-import { fetchOfferObjectAction } from '../../api-actions.ts';
 import Map from '../Map/Map';
 type MainPageProps = {
   currentCity: City;
   cities: City[];
+  offers: OfferObject[];
 };
 export const MainPage : FC<MainPageProps> = ({
   currentCity,
   cities,
+  offers,
 }:MainPageProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(getLoadingOfferPage);
-  const offers = useAppSelector(getOffer);
-  useEffect(() => {
-    dispatch(fetchOfferObjectAction());
-  }, [dispatch]);
+  //  const isLoading = useAppSelector(getLoadingOfferPage);
+  //  const offers = useAppSelector(getOffer);
+  //useEffect(() => {
+  //dispatch(fetchOfferObjectAction());
+  //}, [dispatch]);
   const handleUserSelectCity = (cityName: string) => {
     dispatch(changeCity(cityName));
     // dispatch(fillOffers());
   };
-  const [activeOffer, setActiveOffer] = useState<number | null>(null);
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
 
   const [sortType, setSortType] = useState<SortName>(SortName.popular);
   const sortedOffers = offers?.filter((a) =>a.city.name === currentCity.title).slice().sort((a, b) => {
@@ -94,11 +94,8 @@ export const MainPage : FC<MainPageProps> = ({
               <b className="places__found">
                 {sortedOffers?.length} places to stay in {currentCity.title}
               </b>
-              { isLoading ?
-                <Spinner />
-                :
-                <><FilterOffer currentSort={sortType} onSortChange={setSortType} /><div className="cities__places-list places__list tabs__content"><OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} /></div>
-                </>}
+
+              <FilterOffer currentSort={sortType} onSortChange={setSortType} /><div className="cities__places-list places__list tabs__content"><OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} /></div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
