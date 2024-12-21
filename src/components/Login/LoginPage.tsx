@@ -6,8 +6,10 @@ import { FormEvent, useEffect, useState, ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/index.tsx';
 import { login } from '../../api-actions.ts';
 import { getAuthStatus, getUserDataLoadingStatus } from '../../store/userselector.ts';
+import React from 'react';
 
-export default function LoginPage(): JSX.Element {
+// eslint-disable-next-line react-refresh/only-export-components
+function LoginPage(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   function handleEmailChange(e: ChangeEvent<HTMLInputElement>) {
@@ -39,8 +41,8 @@ export default function LoginPage(): JSX.Element {
       }))
         .then((response) => {
           if(response.meta.requestStatus !== 'rejected' && !isLoading) {
-            setEmail('');
-            setPassword('');
+            setEmail(response.meta.arg.email);
+            setPassword(response.meta.arg.password);
           }
         });
     }
@@ -90,3 +92,5 @@ export default function LoginPage(): JSX.Element {
     </div>
   );
 }
+// eslint-disable-next-line react-refresh/only-export-components
+export default React.memo(LoginPage);

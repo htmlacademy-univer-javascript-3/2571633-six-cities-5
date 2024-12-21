@@ -1,4 +1,4 @@
-import OfferCard from '../Offer/OfferCard';
+import {OfferCard} from '../Offer/OfferCard';
 
 import { OfferObject, CardCssNameList } from '../../types/types';
 

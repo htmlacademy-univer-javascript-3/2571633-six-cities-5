@@ -7,7 +7,6 @@ import LoginPage from './components/Login/LoginPage';
 import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 import Offer from './components/Offer/Offer';
 import { useAppSelector,useAppDispatch } from './hooks';
-import { REVIEWERS } from './mock/reviewers';
 import { fetchOfferObjectAction } from './api-actions.ts';
 //import LoadingScreen from './components/loading-screen/loading-screen';
 
@@ -30,7 +29,7 @@ export const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<MainPage offers={offers.offer} currentCity={currentCity.currentCity} cities={cities.cities}/>} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/offer/:id" element={(offers.offer?.filter((o) => o.id === offerdetails.offer.id).length) > 0 ? <Offer offerdetails={offerdetails.offer} reviews={REVIEWERS} offers={offers.offer} currentCity={currentCity.currentCity}/> : <NotFoundPage/>} />
+          <Route path="/offer/:id" element={(offers.offer?.filter((o) => o.id === offerdetails.offer.id).length) > 0 ? <Offer offerdetails={offerdetails.offer} offers={offers.offer} currentCity={currentCity.currentCity}/> : <NotFoundPage/>} />
           <Route path="/favorites" element={<Favorite offers={offers.offer} />} />
         </Routes>
       </BrowserRouter>

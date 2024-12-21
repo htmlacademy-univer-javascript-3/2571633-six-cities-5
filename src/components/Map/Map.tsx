@@ -31,7 +31,7 @@ function Map(props: MainPageProps): JSX.Element {
   const {offers, currentCity,activeOffer,selectedPoint} = props;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, currentCity.title);
+  const map = useMap(mapRef, currentCity);
 
   useEffect(() => {
     if (map) {
@@ -52,6 +52,7 @@ function Map(props: MainPageProps): JSX.Element {
           })
           .addTo(map);
       });
+      map.flyTo({lat: currentCity.lat,lng:currentCity.lng}, 12);
     }
   }, [map, offers,activeOffer,selectedPoint]);
 
