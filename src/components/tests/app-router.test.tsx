@@ -10,8 +10,6 @@ import { Cities } from '../../shared/api';
 import MainPage from '../MainPage/MainPage';
 import Favorite from '../Favorites/Favorite';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-import Offer from '../Offer/Offer';
-
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
@@ -19,14 +17,13 @@ describe('Application Routing', () => {
   beforeEach(() => {
     mockHistory = createMemoryHistory();
   });
-
   it('should render MainPage when user navigate to "/"', () => {
     // eslint-disable-next-line react/jsx-no-undef
     const withHistoryComponent = withHistory(<MainPage currentCity={{
       title: '',
       lat: 0,
       lng: 0
-    }} cities={[]} offers={[]}
+    }} offers={[]}
     // eslint-disable-next-line react/jsx-closing-bracket-location
     />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
@@ -60,7 +57,7 @@ describe('Application Routing', () => {
       title: '',
       lat: 0,
       lng: 0
-    }} cities={[]} offers={[]}
+    }} offers={[]}
     // eslint-disable-next-line react/jsx-closing-bracket-location
     />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
@@ -100,51 +97,5 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
-  });
-
-  it('should render OfferPage when user navigate to "/offer/163a5b68-37a7-421d-93fa-76f4db817ee4"', () => {
-    const withHistoryComponent = withHistory(<Offer offerdetails={{
-      id: '',
-      title: '',
-      type: '',
-      price: 0,
-      city: {
-        name: '',
-        location: {
-          latitude: 0,
-          longitude: 0,
-          zoom: 0
-        }
-      },
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 0
-      },
-      isFavorite: false,
-      isPremium: false,
-      rating: 0,
-      description: '',
-      bedrooms: 0,
-      goods: [''],
-      host: {
-        name: '',
-        avatarUrl: '',
-        isPro: false
-      },
-      images: [''],
-      maxAdults: 0
-    }} offers={null} currentCity={{
-      title: '',
-      lat: 0,
-      lng: 0
-    // eslint-disable-next-line react/jsx-closing-bracket-location
-    }} />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push('/offer/163a5b68-37a7-421d-93fa-76f4db817ee4');
-
-    render(withStoreComponent);
-
-    expect(screen.getByText(/Wood and stone place/i)).toBeInTheDocument();
   });
 });

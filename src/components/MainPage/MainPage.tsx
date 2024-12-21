@@ -15,12 +15,10 @@ import { logout } from '../../api-actions.ts';
 //import { getToken } from '../../token.ts';
 type MainPageProps = {
   currentCity: City;
-  cities: City[];
   offers: OfferObject[];
 };
 export const MainPage : FC<MainPageProps> = ({
   currentCity,
-  cities,
   offers,
 }:MainPageProps) => {
   const navigate = useNavigate();
@@ -30,7 +28,7 @@ export const MainPage : FC<MainPageProps> = ({
   const authStatusMemo = useMemo(() => authStatus,[authStatus]);
   const userEmailMemo = useMemo(() => userEmail, [userEmail]);
   const offerListMemo = useMemo(() => offers, [offers]);
-
+  const cities = useAppSelector((state) => state.Cities);
   //  const isLoading = useAppSelector(getLoadingOfferPage);
   //  const offers = useAppSelector(getOffer);
   //useEffect(() => {
@@ -113,7 +111,7 @@ export const MainPage : FC<MainPageProps> = ({
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ListCities currentCity={currentCity.title} cities={cities} onSelect={handleUserSelectCity}/>
+            <ListCities currentCity={currentCity.title} cities={cities.cities} onSelect={handleUserSelectCity}/>
           </section>
         </div>
         <div className="cities">
