@@ -1,6 +1,6 @@
 import { createMemoryHistory, MemoryHistory } from 'history';
 import { HelmetProvider } from 'react-helmet-async';
-import HistoryRouter from '../../pages/routes/history-route';
+import HistoryRouter from '../../components/routes/history-route';
 
 export function withHistory(component: JSX.Element, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();
