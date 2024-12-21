@@ -162,7 +162,7 @@ export const postComment = createAsyncThunk<
 });
 export const setIsOfferFavorite = createAsyncThunk<
   void,
-  { offerId: string; isFavorite: boolean },
+  { offerId: string | undefined; isFavorite: boolean },
   {
     dispatch: AppDispatch;
     state: State;

@@ -1,5 +1,6 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
+
 export type City = {
   title: string;
   lat: number;
@@ -131,6 +132,12 @@ export type UserAuth = UserObject & {
 export type LoginAuth = {
   email: string;
   password: string;
+};
+
+export type ReducerType = {
+  offer: OfferIdDetailsPage;
+  user: UserAuth;
+  review: UserReview;
 };
 export type Points = Point[];
 export type State = ReturnType<typeof store.getState>;

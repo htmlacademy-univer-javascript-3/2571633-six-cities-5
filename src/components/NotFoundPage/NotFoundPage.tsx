@@ -69,7 +69,7 @@ function NotFoundPage():JSX.Element{
               </li>
             </ul>
           </section>
-          <h2 style={{ textAlign : 'center'}}>Error 404. Page not found. <Link to = "/"> Back to main page</Link></h2>
+          <h2 style={{ textAlign : 'center'}}>404 Not Found. Page not found. <Link to = "/"> Back to main page</Link></h2>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
           </div>

@@ -71,18 +71,18 @@ function LoginPage(): JSX.Element {
             <form className="login__form form" onSubmit={handleSubmit} action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" onChange={handleEmailChange} value={email} type="email" name="email" placeholder="Email" required />
+                <input data-testid = 'email_input' className="login__input form__input" onChange={handleEmailChange} value={email} type="email" name="email" placeholder="Email" required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" onChange={handlePasswordChange} value={password} type="password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{2,}" title="Contains one letter and one digit" name="password" placeholder="Password" required />
+                <input data-testid = 'password_input' className="login__input form__input" onChange={handlePasswordChange} value={password} type="password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{2,}" title="Contains one letter and one digit" name="password" placeholder="Password" required />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
+              <Link data-testid='location_item-link' className="locations__item-link" to={AppRoute.Main}>
                 <span>Amsterdam</span>
               </Link>
             </div>

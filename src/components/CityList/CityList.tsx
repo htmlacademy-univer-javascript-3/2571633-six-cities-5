@@ -18,6 +18,7 @@ export const ListCities: React.FC<CitiesListProps> = ({
     {cities.map((city) => (
       <li
         className="locations__item"
+        data-testid='location_item'
         key={city.title}
         onClick={() => {
           onSelect(city.title);
