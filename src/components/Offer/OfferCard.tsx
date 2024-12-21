@@ -1,29 +1,52 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { OfferObject } from '../../types/types';
-import { useState } from 'react';
-import { fetchComments, fetchOffer, fetchOfferNeibourhood } from '../../api-actions';
+
+import { Link,useNavigate } from 'react-router-dom';
+import { AppRoute, OfferObject } from '../../types/types';
+import { useEffect, useState } from 'react';
+import { fetchComments, fetchOffer, fetchOfferNeibourhood, setIsOfferFavorite } from '../../api-actions';
 //import {MouseEvent} from 'react';
 import { store } from '../../store';
-//import { useAppDispatch } from '../../hooks';
+import { useAppSelector } from '../../hooks';
+import { getAuthStatus} from '../../store/userselector.ts';
+import classNames from 'classnames';
+import { AuthorizationStatus } from '../../const.ts';
 type OfferCardProps = {
   offer: OfferObject;
   cardcssname: string;
   setActiveOffer?: (id: string | null) => void;
 };
+
 //import { store } from '../../store/index.ts';
-export const OfferCard: React.FC<OfferCardProps> = ({
-  offer,
-  cardcssname,
-  setActiveOffer,
-}) => {
-  //const dispatch = useAppDispatch();
+// eslint-disable-next-line react-refresh/only-export-components
+export function OfferCard ({offer, cardcssname, setActiveOffer}: OfferCardProps): JSX.Element{
+
   const [ isActiveCard, setActiveCard ] = useState(false);
+  const [ isFavorite, setisFavorite ] = useState(false);
   const handleOfferIdLoad = () => {
     //event.preventDefault();
     store.dispatch(fetchOffer(offer.id));
     store.dispatch(fetchOfferNeibourhood(offer.id));
     store.dispatch(fetchComments(offer.id));
+    setisFavorite(offer.isFavorite);
+  };
+  useEffect(() => {
+    setisFavorite(offer.isFavorite);
+  }, [offer.isFavorite]);
+  const authStatus = useAppSelector(getAuthStatus);
+  const navigate = useNavigate();
+  const onFavoriteClick = () => {
+    if(authStatus === AuthorizationStatus.NoAuth || authStatus === AuthorizationStatus.Unknown) {
+      //return dispatch(redirectToRoute(AppRoute.Login));
+      navigate(AppRoute.Login);
+      return;
+    }
+    store.dispatch(
+      setIsOfferFavorite({
+        offerId: offer.id,
+        isFavorite: !isFavorite
+      }),
+    );
+    setisFavorite(!isFavorite);
+    //window.location.reload();
   };
   return (
     <article className={`${cardcssname} place-card`}
@@ -47,6 +70,21 @@ export const OfferCard: React.FC<OfferCardProps> = ({
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
+          {authStatus && (
+            <button
+              className={classNames('place-card__bookmark-button', 'button', {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                ['place-card__bookmark-button--active']: isFavorite,
+              })}
+              type="button"
+              onClick={onFavoriteClick}
+            >
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use xlinkHref="#icon-bookmark"></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          )}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -61,5 +99,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({
       </div>
     </article>
   );
-};
-export default OfferCard;
+}
+//export const OfferCard ;//= memo(MemoOfferCard);
+
+

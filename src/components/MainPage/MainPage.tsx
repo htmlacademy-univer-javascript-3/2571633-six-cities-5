@@ -1,14 +1,18 @@
 import {FC} from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo,useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 //import Spinner from '../spinner/spinner.tsx';
 import OfferList from '../Offer/OfferList';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AppRoute, City, CardCssNameList, SortName, OfferObject} from '../../types/types';
 import { changeCity } from '../../action';
 import { ListCities } from '../../components/CityList/CityList';
 import { FilterOffer } from '../FilterOffers/FilterOffer';
+import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
 import Map from '../Map/Map';
+import { AuthorizationStatus } from '../../const.ts';
+import { logout } from '../../api-actions.ts';
+//import { getToken } from '../../token.ts';
 type MainPageProps = {
   currentCity: City;
   cities: City[];
@@ -21,6 +25,12 @@ export const MainPage : FC<MainPageProps> = ({
 }:MainPageProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const userEmail = useAppSelector(getUserEmail);
+  const authStatus = useAppSelector(getAuthStatus);
+  const authStatusMemo = useMemo(() => authStatus,[authStatus]);
+  const userEmailMemo = useMemo(() => userEmail, [userEmail]);
+  const offerListMemo = useMemo(() => offers, [offers]);
+
   //  const isLoading = useAppSelector(getLoadingOfferPage);
   //  const offers = useAppSelector(getOffer);
   //useEffect(() => {
@@ -33,18 +43,22 @@ export const MainPage : FC<MainPageProps> = ({
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
 
   const [sortType, setSortType] = useState<SortName>(SortName.popular);
-  const sortedOffers = offers?.filter((a) =>a.city.name === currentCity.title).slice().sort((a, b) => {
-    switch (sortType) {
-      case SortName.lowToHigh:
-        return a.price - b.price;
-      case SortName.highToLow:
-        return b.price - a.price;
-      case SortName.topRated:
-        return b.rating - a.rating;
-      default:
-        return 0;
-    }
-  });
+  const sortedOffers = useMemo(
+    () => (offerListMemo ?? []).filter((offer) => offer.city.name === currentCity?.title).slice().sort((a, b) => {
+      switch (sortType) {
+        case SortName.lowToHigh:
+          return a.price - b.price;
+        case SortName.highToLow:
+          return b.price - a.price;
+        case SortName.topRated:
+          return b.rating - a.rating;
+        default:
+          return 0;
+      }
+    }),
+    [currentCity?.title, offerListMemo, sortType],
+  );
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -60,18 +74,34 @@ export const MainPage : FC<MainPageProps> = ({
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">nawwarkheder@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
+                {
+                  authStatusMemo === AuthorizationStatus.Auth ?
+                    <li className="header__nav-item user">
+                      <a className="header__nav-link header__nav-link--profile" href="#">
+                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <span className="header__user-name user__name">{userEmailMemo}</span>
+                        <span className="header__favorite-count">3</span>
+                      </a>
+                    </li> : null
+                }
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
+                  {
+                    authStatusMemo === AuthorizationStatus.Auth ?
+
+                      <Link className="header__nav-link" to = '/'>
+                        <span className="header__signout"
+                          onClick={(evt) => {
+                            evt.preventDefault();
+                            dispatch(logout());
+                          }}
+                        >Sign out
+                        </span>
+                      </Link> :
+
+                      <Link className="header__nav-link" to = {AppRoute.Login}>
+                        <span className="header__signout"> Sign in</span>
+                      </Link>
+                  }
                 </li>
               </ul>
             </nav>
@@ -90,10 +120,8 @@ export const MainPage : FC<MainPageProps> = ({
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers?.filter((a) =>a.city.name === currentCity.title).length} places to stay in {currentCity.title}</b>
-              <b className="places__found">
-                {sortedOffers?.length} places to stay in {currentCity.title}
-              </b>
+              <b className="places__found">{offerListMemo?.filter((a) =>a.city.name === currentCity.title).length} places to stay in {currentCity.title}</b>
+
 
               <FilterOffer currentSort={sortType} onSortChange={setSortType} /><div className="cities__places-list places__list tabs__content"><OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} /></div>
             </section>

@@ -1,19 +1,20 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import SendCommentForm from '../SendCommentForm/SendCommentForm';
 import { ReviewList } from '../Reviews/ReviewList';
-import { useAppSelector } from '../../hooks/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
 //import { offers } from '../../mock/offers';
 
 import Map from '../Map/Map';
 import { AppRoute, UserReview, OfferObject, City,OfferIdDetails, CardCssNameList } from '../../types/types';
 import { AuthorizationStatus } from '../../const.ts';
 import OfferList from './OfferList.tsx';
-
-
+import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
+import { fetchComments, fetchOffer, fetchOfferNeibourhood, logout, setIsOfferFavorite } from '../../api-actions.ts';
+import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 type OfferProps = {
   offerdetails:OfferIdDetails;
-  reviews: UserReview[];
   offers: OfferObject[] | null;
   currentCity: City;
 };
@@ -21,18 +22,42 @@ type OfferProps = {
 export const Offer: React.FC<OfferProps> = ({
   // eslint-disable-next-line react/prop-types
   offerdetails,
-
   offers,
   currentCity,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-
-
-  const authStatus = useAppSelector((store) => store.user.authorizationStatus);
+  const { id: idOffer } = useParams();
+  const dispatch = useAppDispatch();
+  useEffect(()=>{
+    dispatch(fetchOffer(idOffer ?? ''));
+    dispatch(fetchOfferNeibourhood(idOffer ?? ''));
+    dispatch(fetchComments(idOffer ?? ''));
+  },[idOffer,dispatch]);
   const nearbyOffers = useAppSelector((store) => store.offerIdDetails.nearbyOffers);
   const comments:UserReview[] = useAppSelector((store) => store.offerIdDetails.comments);
+  const userEmail = useAppSelector(getUserEmail);
+  const authStatus = useAppSelector(getAuthStatus);
+  const [ isFavorite, setisFavorite ] = useState(false);
+  const navigate = useNavigate();
+  useEffect(() => {
+    setisFavorite(offerdetails.isFavorite);
+  }, [offerdetails.isFavorite]);
 
-
+  const onFavoriteClick = () => {
+    if(authStatus === AuthorizationStatus.NoAuth || authStatus === AuthorizationStatus.Unknown) {
+      //return dispatch(redirectToRoute(AppRoute.Login));
+      navigate(AppRoute.Login);
+      return;
+    }
+    dispatch(
+      setIsOfferFavorite({
+        offerId: offerdetails.id,
+        isFavorite: !isFavorite
+      }),
+    );
+    setisFavorite(!isFavorite);
+    //window.location.reload();
+  };
   return (
     <div className="page">
       <header className="header">
@@ -58,15 +83,29 @@ export const Offer: React.FC<OfferProps> = ({
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
-                      Oliver.conner@gmail.com
+                      {userEmail}
                     </span>
                     <span className="header__favorite-count">3</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
+                  {
+                    authStatus === AuthorizationStatus.Auth ?
+
+                      <Link className="header__nav-link" to = '/'>
+                        <span className="header__signout"
+                          onClick={(evt) => {
+                            evt.preventDefault();
+                            dispatch(logout());
+                          }}
+                        >Sign out
+                        </span>
+                      </Link> :
+
+                      <Link className="header__nav-link" to = {AppRoute.Login}>
+                        <span className="header__signout"> Sign in</span>
+                      </Link>
+                  }
                 </li>
               </ul>
             </nav>
@@ -96,12 +135,21 @@ export const Offer: React.FC<OfferProps> = ({
                 <h1 className="offer__name">
                   {offerdetails.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">{offerdetails.isFavorite ? 'In bookmark' : 'To bookmark'}</span>
-                </button>
+                {authStatus && (
+                  <button
+                    className={classNames('place-card__bookmark-button', 'button', {
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                      ['place-card__bookmark-button--active']: isFavorite,
+                    })}
+                    type="button"
+                    onClick={onFavoriteClick}
+                  >
+                    <svg className="place-card__bookmark-icon" width="18" height="19">
+                      <use xlinkHref="#icon-bookmark"></use>
+                    </svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </button>
+                )}
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

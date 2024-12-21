@@ -16,6 +16,7 @@ import { UserAuth, LoginAuth } from './types/types';
 //import {UserData} from '../types/user-data';
 import { createAPI } from './api';
 import { dropToken, saveToken } from './token';
+import { setOffer } from './action';
 
 export const api = createAPI();
 export const loadOfferNearby = createAction<OfferObject[]>(
@@ -50,15 +51,19 @@ export const login = createAsyncThunk<
   UserAuth,
   LoginAuth,
   {
+    dispatch: AppDispatch;
+    state: State;
     extra: AxiosInstance;
   }
->('user/login', async ({ email, password }, { extra: api }) => {
+>('user/login', async ({ email, password }, { dispatch, extra: api }) => {
   const { data } = await api.post<UserAuth>(APIRoute.Login, {
     email,
     password,
   });
   saveToken(data.token);
   //dispatch(redirectToRoute(AppRoute.Result));
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  dispatch(fillUserEmail(email));
   return {
     name: data.name,
     avatarUrl: data.avatarUrl,
@@ -67,7 +72,38 @@ export const login = createAsyncThunk<
     token: data.token,
   };
 });
-
+export const checkAuthAction = createAsyncThunk<
+  UserAuth,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('user/checkAuth', async (token, { dispatch, extra: api }) => {
+  try {
+    const { data } = await api.get<UserAuth>(APIRoute.Login, {
+      params: { 'X-Token': token },
+    });
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    dispatch(fillUserEmail(data.email));
+    return {
+      name: data.name,
+      avatarUrl: data.avatarUrl,
+      isPro: data.isPro,
+      email: data.email,
+      token: data.token,
+    };
+  } catch (error) {
+    return {
+      name: '',
+      avatarUrl: '',
+      isPro: false,
+      email: '',
+      token: '',
+    };
+  }
+});
 export const logout = createAsyncThunk<
   void,
   undefined,
@@ -124,3 +160,21 @@ export const postComment = createAsyncThunk<
   });
   dispatch(loadComments(data));
 });
+export const setIsOfferFavorite = createAsyncThunk<
+  void,
+  { offerId: string; isFavorite: boolean },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  'offer/setIsOfferFavorite',
+  async ({ offerId, isFavorite }, { dispatch, extra: api }) => {
+    const { data } = await api.post<OfferIdDetails>(
+      `/favorite/${offerId}/${Number(isFavorite)}`
+    );
+    dispatch(setOffer(data));
+  }
+);
+export const fillUserEmail = createAction<string>('user/FillEmail');

@@ -52,6 +52,7 @@ export type AuthorizationSlice = {
   userData: UserAuth | null;
   postError: boolean;
   userDataLoadingStatus: boolean;
+  userEmail: string;
 };
 export type Point = {
   title: string;

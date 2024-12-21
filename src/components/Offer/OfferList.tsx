@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import OfferCard from './OfferCard';
+import {OfferCard} from './OfferCard';
 import { OfferObject } from '../../types/types';
-
 
 type OfferListProps = {
   offers: OfferObject[] | undefined;

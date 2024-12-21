@@ -7,3 +7,5 @@ export const AddOffer = createAction<OfferObject[]>('AddOffer');
 export const loadOffers = createAction<OfferObject[]>('data/fetchOffers');
 
 export const loadOfferDetails = createAction<OfferIdDetails>('data/loadOffer');
+
+export const setOffer = createAction<OfferIdDetails>('offer/set');

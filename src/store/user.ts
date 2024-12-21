@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../const';
 import { AuthorizationSlice } from '../types/types';
-import { login, logout } from '../api-actions';
+import { checkAuthAction, login, logout } from '../api-actions';
 
 const initialState: AuthorizationSlice = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
   postError: false,
   userDataLoadingStatus: false,
+  userEmail: '',
 };
 
 export const user = createSlice({
@@ -16,6 +17,22 @@ export const user = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
+      .addCase(checkAuthAction.fulfilled, (state, action) => {
+        if (action.payload.name === '') {
+          state.authorizationStatus = AuthorizationStatus.NoAuth;
+          state.userDataLoadingStatus = false;
+        } else {
+          state.authorizationStatus = AuthorizationStatus.Auth;
+          state.userData = action.payload;
+          state.userDataLoadingStatus = false;
+        }
+      })
+      .addCase(checkAuthAction.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(checkAuthAction.pending, (state) => {
+        state.userDataLoadingStatus = true;
+      })
       .addCase(login.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
