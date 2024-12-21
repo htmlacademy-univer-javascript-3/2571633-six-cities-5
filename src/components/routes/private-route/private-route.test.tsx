@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import { routesEnum } from '../../../shared/config';
 import { withHistory } from '../../../shared/providers';
-import { AuthEnum } from '../../../entities/user';
+import { AuthorizationStatus } from '../../../const';
 import PrivateRoute from '.';
 
 describe('Component: PrivateRoute', () => {
@@ -24,7 +24,7 @@ describe('Component: PrivateRoute', () => {
       <Routes>
         <Route path={routesEnum.LOGIN} element={<span>{expectedText}</span>} />
         <Route path={routesEnum.FAVORITES} element={
-          <PrivateRoute authState={AuthEnum.NO_AUTHENTICATED}>
+          <PrivateRoute authState={AuthorizationStatus.NoAuth}>
             <span>{notExpectedText}</span>
           </PrivateRoute>
         }
@@ -46,7 +46,7 @@ describe('Component: PrivateRoute', () => {
       <Routes>
         <Route path={routesEnum.LOGIN} element={<span>{notExpectedText}</span>} />
         <Route path={routesEnum.FAVORITES} element={
-          <PrivateRoute authState={AuthEnum.AUTHENTICATED}>
+          <PrivateRoute authState={AuthorizationStatus.Auth}>
             <span>{expectedText}</span>
           </PrivateRoute>
         }

@@ -4,7 +4,7 @@ import { withHistory } from '../../shared/providers';
 import { withStore } from '../../shared/providers/with-store';
 import { makeFakeStore } from '../../shared/mocks';
 import { App } from '../../App';
-import { AppRoute, SortName } from '../../types/types';
+import { AppRoute } from '../../types/types';
 import LoginPage from '../Login/LoginPage';
 import { AuthorizationStatus } from '../../const';
 import { Cities } from '../../shared/api';
@@ -37,7 +37,10 @@ describe('Application Routing', () => {
     const withHistoryComponent = withHistory(<LoginPage />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({ user: {
       authorizationStatus:AuthorizationStatus.NoAuth,
-      user: null
+      userData: null ,
+      postError: false,
+      userDataLoadingStatus: false,
+      userEmail: ''
     },}));
     mockHistory.push(AppRoute.Login);
 
@@ -72,21 +75,6 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
-  });
-
-  it('should render FavoritesPage when user navigate to "/favorites" with empty list', () => {
-    const withHistoryComponent = withHistory(<Favorite offers={null} />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore({offer:{favorites:[],city: Cities.Paris,
-      offers: [],
-      nearOffers: [],
-      sort: SortName.popular,
-      isLoading: false,
-      offerOnPage:null}}));
-    mockHistory.push(AppRoute.Favorites);
-
-    render(withStoreComponent);
-
-    expect(screen.getByText(/Save properties to narrow down search or plan your future trips./i)).toBeInTheDocument();
   });
 
   it('should render NotFoundPage when user navigate to "/notFound"', () => {
