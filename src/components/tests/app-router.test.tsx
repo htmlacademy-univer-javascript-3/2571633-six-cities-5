@@ -3,7 +3,6 @@ import { render, screen} from '@testing-library/react';
 import { withHistory } from '../../shared/providers';
 import { withStore } from '../../shared/providers/with-store';
 import { makeFakeStore } from '../../shared/mocks';
-import { App } from '../../App';
 import { AppRoute } from '../../types/types';
 import LoginPage from '../Login/LoginPage';
 import { AuthorizationStatus } from '../../const';
@@ -23,7 +22,13 @@ describe('Application Routing', () => {
 
   it('should render MainPage when user navigate to "/"', () => {
     // eslint-disable-next-line react/jsx-no-undef
-    const withHistoryComponent = withHistory(<App />, mockHistory);
+    const withHistoryComponent = withHistory(<MainPage currentCity={{
+      title: '',
+      lat: 0,
+      lng: 0
+    }} cities={[]} offers={[]}
+    // eslint-disable-next-line react/jsx-closing-bracket-location
+    />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Main);
 
