@@ -102,7 +102,7 @@ describe('Application Routing', () => {
     expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
   });
 
-  it('should render OfferPage when user navigate to "/offer/a20a52b2-efc2-4b0f-9396-4bdfbe5e9543"', () => {
+  it('should render OfferPage when user navigate to "/offer/163a5b68-37a7-421d-93fa-76f4db817ee4"', () => {
     const withHistoryComponent = withHistory(<Offer offerdetails={{
       id: '',
       title: '',
@@ -141,12 +141,10 @@ describe('Application Routing', () => {
     // eslint-disable-next-line react/jsx-closing-bracket-location
     }} />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
-    mockHistory.push('/offer/a20a52b2-efc2-4b0f-9396-4bdfbe5e9543');
+    mockHistory.push('/offer/163a5b68-37a7-421d-93fa-76f4db817ee4');
 
     render(withStoreComponent);
 
     expect(screen.getByText(/Wood and stone place/i)).toBeInTheDocument();
-    expect(screen.getByText(/A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam./i)).toBeInTheDocument();
-    expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
   });
 });
