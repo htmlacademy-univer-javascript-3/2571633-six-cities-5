@@ -14,11 +14,10 @@ export const ListCities: React.FC<CitiesListProps> = ({
   cities,
   onSelect,
 }) => (
-  <ul className="locations__list tabs__list">
+  <ul className="locations__list tabs__list" data-testid='location_item'>
     {cities.map((city) => (
       <li
         className="locations__item"
-        data-testid='location_item'
         key={city.title}
         onClick={() => {
           onSelect(city.title);
