@@ -3,8 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import SendCommentForm from '../SendCommentForm/SendCommentForm';
 import { ReviewList } from '../Reviews/ReviewList';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-//import { offers } from '../../mock/offers';
-
 import Map from '../Map/Map';
 import { AppRoute, UserReview, CardCssNameList } from '../../types/types';
 import { AuthorizationStatus } from '../../const.ts';
@@ -13,22 +11,25 @@ import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
 import { fetchComments, fetchOffer, fetchOfferNeibourhood, logout, setIsOfferFavorite } from '../../api-actions.ts';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
-export const Offer: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-  const { id: idOffer } = useParams();
+import { store } from '../../store/index.ts';
+
+
+export default function Offer () {
+  const { id: OfferId } = useParams();
   const dispatch = useAppDispatch();
-  const currentCity = useAppSelector((state) => state.currentCity);
-  useEffect(()=>{
-    dispatch(fetchOffer(idOffer ?? ''));
-    dispatch(fetchOfferNeibourhood(idOffer ?? ''));
-    dispatch(fetchComments(idOffer ?? ''));
-  },[idOffer,dispatch]);
-  const nearbyOffers = useAppSelector((store) => store.offerIdDetails.nearbyOffers);
-  const offerdetails = useAppSelector((store) => store.offerIdDetails.offer);
-  const offers = useAppSelector((state) => state.offerPage);
-  const comments:UserReview[] = useAppSelector((store) => store.offerIdDetails.comments);
   const userEmail = useAppSelector(getUserEmail);
   const authStatus = useAppSelector(getAuthStatus);
+  const currentCity = useAppSelector((state) => state.currentCity);
+  useEffect(()=>{
+    store.dispatch(fetchOffer(OfferId ?? ''));
+    store.dispatch(fetchOfferNeibourhood(OfferId ?? ''));
+    store.dispatch(fetchComments(OfferId ?? ''));
+  },[OfferId,dispatch]);
+  const nearbyOffers = useAppSelector((state) => state.offerIdDetails.nearbyOffers);
+  const offerdetails = useAppSelector((state) => state.offerIdDetails.offer);
+  const offers = useAppSelector((state) => state.offerPage);
+  const comments:UserReview[] = useAppSelector((state) => state.offerIdDetails.comments);
+
   const [ isFavorite, setisFavorite ] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -198,12 +199,13 @@ export const Offer: React.FC = () => {
             </div>
           </div>
           <section className="offer__map map">
-            <Map
-              offers={offers === null ? undefined : [...offers.offer]}
-              selectedPoint={offers.offer?.[1]}
-              currentCity={currentCity.currentCity}
-              activeOffer={offers.offer === null ? null : offers.offer[1].id}
-            />
+            {offers !== null && offers.offer !== null && offers.offer.length > 0 ?
+              <Map
+                offers={offers === null ? undefined : [...offers.offer]}
+                selectedPoint={offers.offer?.[1]}
+                currentCity={currentCity.currentCity}
+                activeOffer={offers.offer === null ? null : offers?.offer[1].id}
+              /> : <Map offers={undefined} currentCity={currentCity.currentCity} activeOffer={null} selectedPoint={undefined} />}
           </section>
         </section>
         <div className="container">
@@ -216,5 +218,4 @@ export const Offer: React.FC = () => {
       </main>
     </div>
   );
-};
-export default Offer;
+}

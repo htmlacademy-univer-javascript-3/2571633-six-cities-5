@@ -7,7 +7,7 @@ interface IPrivateRoute extends PropsWithChildren{
   authState: AuthorizationStatus;
 }
 function PrivateRoute({children, authState}: IPrivateRoute) {
-  return authState === AuthorizationStatus.Auth ? children : <Navigate to={routesEnum.LOGIN} />;
+  return authState === AuthorizationStatus.Auth || authState === AuthorizationStatus.Unknown ? children : <Navigate to={routesEnum.LOGIN} />;
 }
 
 export default PrivateRoute;
