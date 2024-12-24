@@ -47,6 +47,19 @@ export type OfferIdDetails = {
   images: [string];
   maxAdults: number;
 };
+export enum Cities {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export interface EmptyCityProps {
+  city: Cities;
+}
+
 export type AuthorizationSlice = {
   authorizationStatus: AuthorizationStatus;
   userData: UserAuth | null;

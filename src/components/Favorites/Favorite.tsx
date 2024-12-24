@@ -12,7 +12,7 @@ const Favorite = ({ offers }: FavoriteProps) => (
         <section className="favorites">
           <h1 className="favorites__title">Saved listings</h1>
           <div className="favorites__list">
-            {offers?.map((offer) => (
+            {offers?.filter((a) =>a.isFavorite === true)?.map((offer) => (
               <OfferCard key={offer.id} offer={offer} cardcssname={CardCssNameList.favoritePlace} />
             ))}
           </div>
