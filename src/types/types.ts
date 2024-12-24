@@ -1,6 +1,5 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
-
 export type City = {
   title: string;
   lat: number;
@@ -16,18 +15,6 @@ export type OfferIdDetailsPage = {
   nearbyOffers: OfferObject[];
   comments: UserReview[];
 };
-export enum Cities {
-  Paris = 'Paris',
-  Cologne = 'Cologne',
-  Brussels = 'Brussels',
-  Amsterdam = 'Amsterdam',
-  Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
-}
-
-export interface EmptyCityProps {
-  city: Cities;
-}
 export type OfferIdDetails = {
   id: string;
   title: string;
@@ -60,6 +47,19 @@ export type OfferIdDetails = {
   images: [string];
   maxAdults: number;
 };
+export enum Cities {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+export interface EmptyCityProps {
+  city: Cities;
+}
+
 export type AuthorizationSlice = {
   authorizationStatus: AuthorizationStatus;
   userData: UserAuth | null;
@@ -144,12 +144,6 @@ export type UserAuth = UserObject & {
 export type LoginAuth = {
   email: string;
   password: string;
-};
-
-export type ReducerType = {
-  offer: OfferIdDetailsPage;
-  user: UserAuth;
-  review: UserReview;
 };
 export type Points = Point[];
 export type State = ReturnType<typeof store.getState>;
