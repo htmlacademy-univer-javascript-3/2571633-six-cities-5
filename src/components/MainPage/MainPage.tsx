@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 //import Spinner from '../spinner/spinner.tsx';
 import OfferList from '../Offer/OfferList';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, City, CardCssNameList, SortName, OfferObject} from '../../types/types';
+import { AppRoute, City, CardCssNameList, SortName, OfferObject, Cities} from '../../types/types';
 import { changeCity } from '../../action';
 import { ListCities } from '../../components/CityList/CityList';
 import { FilterOffer } from '../FilterOffers/FilterOffer';
@@ -12,6 +12,7 @@ import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
 import Map from '../Map/Map';
 import { AuthorizationStatus } from '../../const.ts';
 import { logout } from '../../api-actions.ts';
+import { EmptyCityBlock } from '../Main-Empty/Main-Empty.tsx';
 //import { getToken } from '../../token.ts';
 type MainPageProps = {
   currentCity: City;
@@ -115,20 +116,25 @@ export const MainPage : FC<MainPageProps> = ({
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerListMemo?.filter((a) =>a.city.name === currentCity.title).length} places to stay in {currentCity.title}</b>
+          {
+            !offerListMemo.length ?
+              <EmptyCityBlock city={Cities[currentCity.title as keyof typeof Cities]}/>
+              :
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offerListMemo?.filter((a) =>a.city.name === currentCity.title).length} places to stay in {currentCity.title}</b>
 
 
-              <FilterOffer currentSort={sortType} onSortChange={setSortType} /><div className="cities__places-list places__list tabs__content"><OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} /></div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map offers={sortedOffers?.filter((a) =>a.city.name === currentCity.title)} selectedPoint={sortedOffers?.[0]} activeOffer={activeOffer} currentCity={currentCity} />
-              </section>
-            </div>
-          </div>
+                  <FilterOffer currentSort={sortType} onSortChange={setSortType} /><div className="cities__places-list places__list tabs__content"><OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} /></div>
+                </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map offers={sortedOffers?.filter((a) =>a.city.name === currentCity.title)} selectedPoint={sortedOffers?.[0]} activeOffer={activeOffer} currentCity={currentCity} />
+                  </section>
+                </div>
+              </div>
+          }
         </div>
       </main>
     </div>
