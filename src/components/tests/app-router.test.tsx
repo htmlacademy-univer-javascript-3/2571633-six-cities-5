@@ -10,6 +10,7 @@ import { Cities } from '../../shared/api';
 import MainPage from '../MainPage/MainPage';
 import Favorite from '../Favorites/Favorite';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+import Offer from '../Offer/Offer';
 
 describe('Application Routing', () => {
   let mockHistory: MemoryHistory;
@@ -97,5 +98,12 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     expect(screen.getByText(/404 Not Found/i)).toBeInTheDocument();
+  });
+  it('should render OfferPage when user navigate to "/offer/a01640c0-fed5-4d3f-99b3-deb2391269fc"', () => {
+    const withHistoryComponent = withHistory(<Offer />, mockHistory);
+    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    mockHistory.push('/offer/a01640c0-fed5-4d3f-99b3-deb2391269fc');
+    render(withStoreComponent);
+    expect(screen.getByText(/Wood and stone place/i)).toBeInTheDocument();
   });
 });

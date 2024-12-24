@@ -1,6 +1,5 @@
 import { store } from '../store';
 import { AuthorizationStatus } from '../const';
-
 export type City = {
   title: string;
   lat: number;
@@ -146,7 +145,6 @@ export type LoginAuth = {
   email: string;
   password: string;
 };
-
 export type ReducerType = {
   offer: OfferIdDetailsPage;
   user: UserAuth;
