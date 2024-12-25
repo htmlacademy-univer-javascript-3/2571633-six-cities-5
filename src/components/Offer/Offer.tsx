@@ -209,7 +209,12 @@ export default function Offer () {
           </section>
         </section>
         <div className="container">
-          <OfferList offers={nearbyOffers} cardcssname={CardCssNameList.citiesList} />
+          <section className="near-places places">
+            <h2 className="near-places__title">
+            Other places in the neighbourhood
+            </h2>
+            <OfferList offers={nearbyOffers} cardcssname={CardCssNameList.citiesList} />
+          </section>
         </div>
         <div>
           <h2 className="reviews__title">Reviews</h2>

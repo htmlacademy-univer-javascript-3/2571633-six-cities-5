@@ -105,5 +105,6 @@ describe('Application Routing', () => {
     mockHistory.push('/offer/a01640c0-fed5-4d3f-99b3-deb2391269fc');
     render(withStoreComponent);
     expect(screen.getByText(/Wood and stone place/i)).toBeInTheDocument();
+    expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
   });
 });
