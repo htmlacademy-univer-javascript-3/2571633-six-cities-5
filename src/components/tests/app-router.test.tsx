@@ -49,7 +49,7 @@ describe('Application Routing', () => {
 
     render(withStoreComponent);
 
-    expect(screen.getAllByText(/Sign in/i)).toHaveLength(2);
+    expect(screen.getAllByText(/Sign in/i)).toHaveLength(1);
     expect(screen.getByTestId('location_item-link')).toBeInTheDocument();
   });
 
