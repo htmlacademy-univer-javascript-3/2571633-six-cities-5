@@ -8,7 +8,6 @@ import {
   UserReview,
   UserReviewPost,
 } from './types/types';
-import { OfferObject } from './types/types';
 //import {redirectToRoute} from './action';
 //import { saveToken, dropToken } from './token';
 import { APIRoute } from './const';
@@ -16,15 +15,15 @@ import { UserAuth, LoginAuth } from './types/types';
 //import {UserData} from '../types/user-data';
 import { createAPI } from './api';
 import { dropToken, saveToken } from './token';
-import { setOffer } from './action';
+import { setOffer, setUser } from './action';
 
 export const api = createAPI();
-export const loadOfferNearby = createAction<OfferObject[]>(
+export const loadOfferNearby = createAction<OfferIdDetails[]>(
   'data/loadOfferNearby'
 );
 export const loadComments = createAction<UserReview[]>('data/loadComments');
 export const fetchOfferObjectAction = createAsyncThunk<
-  OfferObject[],
+  OfferIdDetails[],
   undefined,
   {
     dispatch: AppDispatch;
@@ -32,7 +31,7 @@ export const fetchOfferObjectAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffers', async () => {
-  const { data } = await api.get<OfferObject[]>(APIRoute.Offers);
+  const { data } = await api.get<OfferIdDetails[]>(APIRoute.Offers);
   return data;
 });
 export const fetchOffer = createAsyncThunk<
@@ -51,11 +50,10 @@ export const login = createAsyncThunk<
   UserAuth,
   LoginAuth,
   {
-    dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }
->('user/login', async ({ email, password }, { dispatch, extra: api }) => {
+>('user/login', async ({ email, password }, { extra: api }) => {
   const { data } = await api.post<UserAuth>(APIRoute.Login, {
     email,
     password,
@@ -63,7 +61,7 @@ export const login = createAsyncThunk<
   saveToken(data.token);
   //dispatch(redirectToRoute(AppRoute.Result));
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  dispatch(fillUserEmail(email));
+  //  dispatch(FillEmail(email));
   return {
     name: data.name,
     avatarUrl: data.avatarUrl,
@@ -86,7 +84,8 @@ export const checkAuthAction = createAsyncThunk<
       params: { 'X-Token': token },
     });
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    dispatch(fillUserEmail(data.email));
+    //dispatch(FillEmail(data.email));
+    dispatch(setUser(data));
     return {
       name: data.name,
       avatarUrl: data.avatarUrl,
@@ -126,10 +125,10 @@ export const fetchOfferNeibourhood = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOfferNearby', async (id, { dispatch, extra: api }) => {
-  const { data } = await api.get<OfferObject[]>(
+  const { data } = await api.get<OfferIdDetails[]>(
     `${APIRoute.Offers}/${id}/nearby`
   );
-  dispatch(loadOfferNearby(data));
+  dispatch(loadOfferNearby(data?.slice(0, 3)));
 });
 
 export const fetchComments = createAsyncThunk<
@@ -177,4 +176,3 @@ export const setIsOfferFavorite = createAsyncThunk<
     dispatch(setOffer(data));
   }
 );
-export const fillUserEmail = createAction<string>('user/FillEmail');
