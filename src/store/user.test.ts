@@ -122,7 +122,7 @@ describe('User async actions', () => {
       ]);
     });
     it(`should dispatch "checkAuth.pending",
-      "setUser", "fetchFavorites.pending", "setUser",
+       "fetchFavorites.pending",
        "checkAuth.fulfilled" with thunk "checkAuth"`, async () => {
       mockAxiosAdapter.onGet(AppRoute.Login).reply(401);
       await store.dispatch(checkAuthAction(''));
@@ -135,7 +135,7 @@ describe('User async actions', () => {
   });
 
   describe('login', () => {
-    it('should dispatch some actions with thunk "login"', async () => {
+    it('should dispatch some actions "login"', async () => {
       const fakeServerReplay = { token: 'secret' };
       mockAxiosAdapter
         .onPost(AppRoute.Login, { email: 'test', password: 'test' })
@@ -147,7 +147,10 @@ describe('User async actions', () => {
       expect(actions).toEqual([login.pending.type, login.fulfilled.type]);
     });
     it('should call "saveToken" once with the received token', async () => {
-      const fakeUser: LoginAuth = { email: 'test@test.ru', password: '123456' };
+      const fakeUser: LoginAuth = {
+        email: 'nawwar@gamil.ru',
+        password: 'P@ssw0rd',
+      };
       const fakeServerReplay = { token: 'secret' };
       mockAxiosAdapter.onPost(AppRoute.Login).reply(200, fakeServerReplay);
       const mockSaveToken = vi.spyOn(tokenService, 'saveToken');
@@ -159,13 +162,13 @@ describe('User async actions', () => {
   });
 
   describe('logout', () => {
-    it('should dispatch some actions with thunk "logout"', async () => {
+    it('should dispatch some actions "logout"', async () => {
       mockAxiosAdapter.onDelete('logout').reply(204);
       await store.dispatch(logout());
       const actions = extractActionsTypes(store.getActions());
       expect(actions).toEqual([logout.pending.type, logout.fulfilled.type]);
     });
-    it('should one call "dropToken" with "logout"', async () => {
+    it('call "dropToken" with "logout"', async () => {
       mockAxiosAdapter.onDelete('logout').reply(204);
       const mockDropToken = vi.spyOn(tokenService, 'dropToken');
 
