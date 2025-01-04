@@ -31,4 +31,6 @@ export const emptyOffer: OfferIdDetails = {
   },
   images: [''],
   maxAdults: 0,
+  previewImage: '',
+
 };

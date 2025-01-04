@@ -1,6 +1,6 @@
 
 import { Link,useNavigate } from 'react-router-dom';
-import { AppRoute, OfferObject } from '../../types/types';
+import { AppRoute, OfferIdDetails } from '../../types/types';
 import { useEffect, useState } from 'react';
 import { fetchComments, fetchOffer, fetchOfferNeibourhood, setIsOfferFavorite } from '../../api-actions';
 //import {MouseEvent} from 'react';
@@ -10,7 +10,7 @@ import { getAuthStatus} from '../../store/userselector.ts';
 import classNames from 'classnames';
 import { AuthorizationStatus } from '../../const.ts';
 type OfferCardProps = {
-  offer: OfferObject;
+  offer: OfferIdDetails;
   cardcssname: string;
   setActiveOffer?: (id: string | null) => void;
 };
