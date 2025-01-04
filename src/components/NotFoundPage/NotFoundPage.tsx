@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+
 import { AppRoute } from '../../types/types';
 import { AuthorizationStatus } from '../../const.ts';
 import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
@@ -8,7 +9,6 @@ function NotFoundPage():JSX.Element{
   const dispatch = useAppDispatch();
   const userEmail = useAppSelector(getUserEmail);
   const authStatus = useAppSelector(getAuthStatus);
-
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -59,6 +59,7 @@ function NotFoundPage():JSX.Element{
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <h2 style={{ textAlign : 'center'}}>404 Not Found<Link to = "/"> Return to main page</Link></h2>
+
           <div className="cities__right-section">
             <section className="cities__map map"></section>
           </div>

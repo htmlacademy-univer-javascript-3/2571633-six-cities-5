@@ -9,7 +9,9 @@ export const getAuthStatus = createSelector(
   (items) => items
 );
 export const getUserEmail = (state: State): string | undefined =>
+
   state['user']?.userData?.email;
+
 export const getUserData = createSelector(
   (state: State) => state['user'],
   (state: AuthorizationSlice) => state.userData
@@ -22,5 +24,7 @@ export const getUserPostError = createSelector(
 
 export const getUserDataLoadingStatus = createSelector(
   (state: State) => state['user'],
+
   (state: AuthorizationSlice) => state?.userDataLoadingStatus
+
 );

@@ -18,6 +18,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({
     <ul className="reviews__list">
       {reviews.map((review) => (
         <Review key={review.id} {...review} />
+
       ))}
     </ul>
   </section>
