@@ -5,12 +5,15 @@ import { ReviewList } from '../Reviews/ReviewList';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import Map from '../Map/Map';
 import { AppRoute, UserReview, CardCssNameList, OfferIdDetails } from '../../types/types';
+
 import { AuthorizationStatus } from '../../const.ts';
 import OfferList from './OfferList.tsx';
 import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
 import { fetchComments, fetchOffer, fetchOfferNeibourhood, logout, setIsOfferFavorite } from '../../api-actions.ts';
 import classNames from 'classnames';
+
 import { useEffect, useMemo, useState } from 'react';
+
 import { store } from '../../store/index.ts';
 
 
@@ -29,7 +32,9 @@ export default function Offer () {
   const offerdetails = useAppSelector((state) => state.offerIdDetails.offer);
   const offers = useAppSelector((state) => state.offerPage);
   const comments:UserReview[] = useAppSelector((state) => state.offerIdDetails.comments);
+
   const offersForMap: OfferIdDetails[] = useMemo(()=>nearbyOffers.slice(0,3).concat(offerdetails || []),[nearbyOffers, offerdetails]);
+
 
   const [ isFavorite, setisFavorite ] = useState(false);
   const navigate = useNavigate();
@@ -71,13 +76,17 @@ export default function Offer () {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
+
                   <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Main}>
+
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
                       {userEmail}
                     </span>
                     <span className="header__favorite-count">3</span>
+
                   </Link>
+
                 </li>
                 <li className="header__nav-item">
                   {
@@ -199,7 +208,9 @@ export default function Offer () {
           <section className="offer__map map">
             {offers !== null && offers.offer !== null && offers.offer.length > 0 ?
               <Map
+
                 offers={offers === null ? undefined : offersForMap}
+
                 selectedPoint={offers.offer?.[1]}
                 currentCity={currentCity.currentCity}
                 activeOffer={offers.offer === null ? null : offers?.offer[1].id}

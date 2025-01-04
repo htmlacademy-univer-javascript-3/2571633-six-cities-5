@@ -16,15 +16,19 @@ import { UserAuth, LoginAuth } from './types/types';
 //import {UserData} from '../types/user-data';
 import { createAPI } from './api';
 import { dropToken, saveToken } from './token';
+
 import { setOffer, setUser } from './action';
 
 export const api = createAPI();
 export const loadOfferNearby = createAction<OfferIdDetails[]>(
+
   'data/loadOfferNearby'
 );
 export const loadComments = createAction<UserReview[]>('data/loadComments');
 export const fetchOfferObjectAction = createAsyncThunk<
+
   OfferIdDetails[],
+
   undefined,
   {
     dispatch: AppDispatch;
@@ -32,7 +36,9 @@ export const fetchOfferObjectAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffers', async () => {
+
   const { data } = await api.get<OfferIdDetails[]>(APIRoute.Offers);
+
   return data;
 });
 export const fetchOffer = createAsyncThunk<
@@ -51,10 +57,12 @@ export const login = createAsyncThunk<
   UserAuth,
   LoginAuth,
   {
+
     state: State;
     extra: AxiosInstance;
   }
 >('user/login', async ({ email, password }, { extra: api }) => {
+
   const { data } = await api.post<UserAuth>(APIRoute.Login, {
     email,
     password,
@@ -62,7 +70,9 @@ export const login = createAsyncThunk<
   saveToken(data.token);
   //dispatch(redirectToRoute(AppRoute.Result));
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
   //  dispatch(FillEmail(email));
+
   return {
     name: data.name,
     avatarUrl: data.avatarUrl,
@@ -85,8 +95,10 @@ export const checkAuthAction = createAsyncThunk<
       params: { 'X-Token': token },
     });
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
     //dispatch(FillEmail(data.email));
     dispatch(setUser(data));
+
     return {
       name: data.name,
       avatarUrl: data.avatarUrl,
@@ -126,10 +138,12 @@ export const fetchOfferNeibourhood = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOfferNearby', async (id, { dispatch, extra: api }) => {
+
   const { data } = await api.get<OfferIdDetails[]>(
     `${APIRoute.Offers}/${id}/nearby`
   );
   dispatch(loadOfferNearby(data?.slice(0, 3)));
+
 });
 
 export const fetchComments = createAsyncThunk<
@@ -177,3 +191,4 @@ export const setIsOfferFavorite = createAsyncThunk<
     dispatch(setOffer(data));
   }
 );
+

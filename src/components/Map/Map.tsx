@@ -1,7 +1,9 @@
 import {useRef, useEffect} from 'react';
 import leaflet, {Icon} from 'leaflet';
 import useMap from '../../hooks/use-map';
+
 import { OfferIdDetails, City } from '../../types/types';
+
 import 'leaflet/dist/leaflet.css';
 const defaultCustomIcon = new Icon({
   iconUrl: 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
@@ -21,9 +23,11 @@ const activeCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 type MainPageProps = {
+
   offers: OfferIdDetails[] | undefined;
   currentCity: City;
   selectedPoint: OfferIdDetails | undefined;
+
   activeOffer: string | null;
 };
 
@@ -55,6 +59,7 @@ function Map(props: MainPageProps): JSX.Element {
       map.flyTo({lat: currentCity.lat,lng:currentCity.lng}, 12);
     }
   }, [map, offers, activeOffer, selectedPoint, currentCity.lat, currentCity.lng]);
+
 
   return (<div style={{ height: '100%' }} ref={mapRef}></div>);
 }

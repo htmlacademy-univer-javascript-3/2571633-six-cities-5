@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom';
+
 import { AppRoute } from '../../types/types';
 import { AuthorizationStatus } from '../../const.ts';
 import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
@@ -15,9 +16,11 @@ function NotFoundPage():JSX.Element{
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
+
               <Link className="header__logo-link header__logo-link--active" to={AppRoute.Main}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
+
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -48,6 +51,7 @@ function NotFoundPage():JSX.Element{
                         <span className="header__signout"> Sign in</span>
                       </Link>
                   }
+
                 </li>
               </ul>
             </nav>
@@ -59,6 +63,7 @@ function NotFoundPage():JSX.Element{
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <h2 style={{ textAlign : 'center'}}>404 Not Found<Link to = "/"> Return to main page</Link></h2>
+
           <div className="cities__right-section">
             <section className="cities__map map"></section>
           </div>
