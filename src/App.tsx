@@ -10,6 +10,9 @@ import { useAppSelector,useAppDispatch } from './hooks';
 import { fetchOfferObjectAction } from './api-actions.ts';
 import PrivateRoute from './components/routes/private-route/index.tsx';
 import { getAuthStatus } from './store/userselector.ts';
+
+import NotFoundPage from './components/NotFoundPage/NotFoundPage.tsx';
+
 //import LoadingScreen from './components/loading-screen/loading-screen';
 
 export const App: React.FC = () => {
@@ -34,6 +37,9 @@ export const App: React.FC = () => {
             element={<PrivateRoute key="/offer/:id" authState={authorizationStatus}>{<Offer />}</PrivateRoute>}
           />
           <Route path="/favorites" element={<Favorite offers={offers.offer} />} />
+
+          <Route path="/NotFoundPage" element={<NotFoundPage />} />
+
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

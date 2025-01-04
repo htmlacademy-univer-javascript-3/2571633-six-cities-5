@@ -22,6 +22,9 @@ export function makeFakeStore(initialState: Partial<State> = {}): State {
         type: 'apartment',
         price: 576,
         images: ['https://14.design.htmlacademy.pro/static/hotel/14.jpg'],
+
+        previewImage: 'https://14.design.htmlacademy.pro/static/hotel/14.jpg',
+
         city: {
           name: 'Amsterdam',
           location: {
@@ -64,12 +67,14 @@ export function makeFakeStore(initialState: Partial<State> = {}): State {
         name: 'Oliver Conner',
         avatarUrl: 'https://url-to-image/image.png',
         isPro: false,
-        email: '',
+
+        email: 'test@gmail.com',
         token: '',
       },
+      userEmail: 'test@gmail.com',
+      userDataLoadingStatus: true,
       postError: false,
-      userDataLoadingStatus: false,
-      userEmail: '',
+
     },
     ...initialState,
   };

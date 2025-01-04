@@ -1,9 +1,11 @@
 import {OfferCard} from '../Offer/OfferCard';
 
-import { OfferObject, CardCssNameList } from '../../types/types';
+
+import { OfferIdDetails, CardCssNameList } from '../../types/types';
 
 type FavoriteProps = {
-  offers: OfferObject[] | null;
+  offers: OfferIdDetails[] | null;
+
 };
 const Favorite = ({ offers }: FavoriteProps) => (
   <div className="page">

@@ -17,7 +17,9 @@ export const ReviewList: React.FC<ReviewListProps> = ({
     </h2>
     <ul className="reviews__list">
       {reviews.map((review) => (
-        <Review key={review.date.toString()} {...review} />
+
+        <Review key={review.id} {...review} />
+
       ))}
     </ul>
   </section>
