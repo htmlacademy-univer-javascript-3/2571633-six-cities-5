@@ -6,6 +6,7 @@ export type City = {
   lng: number;
 };
 export type OfferData = {
+
   offer: OfferIdDetails[];
 
   offerPageStatus: boolean;
@@ -51,6 +52,7 @@ export type OfferIdDetails = {
   maxAdults: number;
 
   previewImage: string;
+
 };
 export enum Cities {
   Paris = 'Paris',

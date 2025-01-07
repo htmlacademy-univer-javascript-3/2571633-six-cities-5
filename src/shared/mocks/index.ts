@@ -74,6 +74,7 @@ export function makeFakeStore(initialState: Partial<State> = {}): State {
       userEmail: 'test@gmail.com',
       userDataLoadingStatus: true,
       postError: false,
+
     },
     Favorites: {
       favorites: [],
