@@ -7,12 +7,15 @@ export type City = {
 };
 export type OfferData = {
   offer: OfferIdDetails[];
+
   offerPageStatus: boolean;
 };
 export type OfferIdDetailsPage = {
   offer: OfferIdDetails;
   OfferIdDetailsPageStatus: boolean;
+
   nearbyOffers: OfferIdDetails[];
+
   comments: UserReview[];
 };
 export type OfferIdDetails = {
@@ -46,6 +49,7 @@ export type OfferIdDetails = {
   };
   images: [string];
   maxAdults: number;
+
   previewImage: string;
 };
 export enum Cities {
@@ -151,6 +155,35 @@ export type ReducerType = {
   user: UserAuth;
   review: UserReview;
 };
+export type favoriteObject = {
+  id: string;
+  title: string;
+  type: string;
+  price: number;
+  previewImage?: string;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
+  location: Point;
+  isFavorite: boolean;
+  isPremium: boolean;
+  rating: number;
+};
+
+export type favoriteDetail = favoriteObject & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: string;
+  images: string[];
+  maxAdults: number;
+};
+
 export type Points = Point[];
 export type State = ReturnType<typeof store.getState>;
 

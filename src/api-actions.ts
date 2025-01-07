@@ -3,12 +3,13 @@ import { AxiosInstance } from 'axios';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AppDispatch,
+  favoriteObject,
   OfferIdDetails,
   State,
   UserReview,
   UserReviewPost,
 } from './types/types';
-
+import { StatusCodes } from 'http-status-codes';
 //import {redirectToRoute} from './action';
 //import { saveToken, dropToken } from './token';
 import { APIRoute } from './const';
@@ -16,7 +17,13 @@ import { UserAuth, LoginAuth } from './types/types';
 //import {UserData} from '../types/user-data';
 import { createAPI } from './api';
 import { dropToken, saveToken } from './token';
-import { setOffer, setUser } from './action';
+
+import {
+  setFavorites,
+  setFavoritesLoadingStatus,
+  setOffer,
+  setUser,
+} from './action';
 
 export const api = createAPI();
 export const loadOfferNearby = createAction<OfferIdDetails[]>(
@@ -33,6 +40,7 @@ export const fetchOfferObjectAction = createAsyncThunk<
   }
 >('data/fetchOffers', async () => {
   const { data } = await api.get<OfferIdDetails[]>(APIRoute.Offers);
+
   return data;
 });
 export const fetchOffer = createAsyncThunk<
@@ -62,7 +70,9 @@ export const login = createAsyncThunk<
   saveToken(data.token);
   //dispatch(redirectToRoute(AppRoute.Result));
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
   //  dispatch(FillEmail(email));
+
   return {
     name: data.name,
     avatarUrl: data.avatarUrl,
@@ -85,8 +95,10 @@ export const checkAuthAction = createAsyncThunk<
       params: { 'X-Token': token },
     });
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
+
     //dispatch(FillEmail(data.email));
     dispatch(setUser(data));
+
     return {
       name: data.name,
       avatarUrl: data.avatarUrl,
@@ -160,6 +172,32 @@ export const postComment = createAsyncThunk<
   });
   dispatch(loadComments(data));
 });
+
+export const fetchFavorites = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${APIRoute.Favorites}/fetchfavorite`,
+  async (_arg, { dispatch, extra: api }) => {
+    dispatch(setFavoritesLoadingStatus('Pending'));
+    const { status, data } = await api.get<favoriteObject[]>(
+      APIRoute.Favorites
+    );
+    if (status === Number(StatusCodes.NOT_FOUND)) {
+      dispatch(setFavoritesLoadingStatus('Failure'));
+      return;
+    }
+
+    dispatch(setFavorites(data));
+    dispatch(setFavoritesLoadingStatus('Success'));
+  }
+);
+
 export const setIsOfferFavorite = createAsyncThunk<
   void,
   { offerId: string | undefined; isFavorite: boolean },
@@ -175,5 +213,6 @@ export const setIsOfferFavorite = createAsyncThunk<
       `/favorite/${offerId}/${Number(isFavorite)}`
     );
     dispatch(setOffer(data));
+    dispatch(fetchFavorites());
   }
 );

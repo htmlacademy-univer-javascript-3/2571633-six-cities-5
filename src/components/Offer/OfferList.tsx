@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import {OfferCard} from './OfferCard';
+
 import { OfferIdDetails } from '../../types/types';
 
 type OfferListProps = {
   offers: OfferIdDetails[] | undefined;
+
   cardcssname: string;
   setActiveOffer?: (id: string | null) => void;
 };
