@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Rating } from '../Rating/Rating';
 import { UserReview} from '../../types/types';
-
+import {dateToMonthWordYear, dateToYearMonthDay} from '../../date.ts';
 export const Review: React.FC<UserReview> = ({
   comment,
   date,
@@ -29,8 +29,8 @@ export const Review: React.FC<UserReview> = ({
         mode="compact"
       />
       <p className="reviews__text">{comment}</p>
-      <time className="reviews__time" dateTime="2019-04-24">
-        {date}
+      <time className="reviews__time" dateTime={dateToYearMonthDay(new Date(date))}>
+        {dateToMonthWordYear(new Date(date))}
       </time>
     </div>
   </li>

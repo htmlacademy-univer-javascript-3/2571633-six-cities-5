@@ -26,8 +26,8 @@ const Favorite = () => {
     <div className="page">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section className="favorites">
-            {((isLoading === 'Failure' || isLoading === 'Success') && favorites.length === 0)
+          <section className={`favorites ${(favorites === undefined || favorites?.length === 0) ? 'favorites--empty' : null }`}>
+            {((isLoading === 'Failure' || isLoading === 'Success' || isLoading === undefined) && (favorites === undefined || favorites?.length === 0))
               ?
               <>
                 <h1 className="visually-hidden">Favorites (empty)</h1>

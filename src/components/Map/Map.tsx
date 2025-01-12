@@ -31,7 +31,7 @@ type MainPageProps = {
   activeOffer: string | null;
 };
 
-function Map(props: MainPageProps): JSX.Element {
+export default function Map(props: MainPageProps): JSX.Element {
   const {offers, currentCity,activeOffer,selectedPoint} = props;
 
   const mapRef = useRef(null);
@@ -61,7 +61,6 @@ function Map(props: MainPageProps): JSX.Element {
   }, [map, offers, activeOffer, selectedPoint, currentCity.lat, currentCity.lng]);
 
 
-  return (<div style={{ height: '100%' }} ref={mapRef}></div>);
+  return (<div style={{ height: '100%' }} ref={mapRef} data-testid='map-test'></div>);
 }
-
-export default Map;
+//export default Map;
