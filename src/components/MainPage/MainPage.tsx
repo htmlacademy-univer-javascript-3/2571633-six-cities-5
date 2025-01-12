@@ -1,4 +1,4 @@
-import {FC} from 'react';
+import {FC, useEffect} from 'react';
 import { useMemo,useState } from 'react';
 
 import { Link } from 'react-router-dom';
@@ -13,7 +13,7 @@ import { FilterOffer } from '../FilterOffers/FilterOffer';
 import { getAuthStatus,getUserEmail} from '../../store/userselector.ts';
 import Map from '../Map/Map';
 import { AuthorizationStatus } from '../../const.ts';
-import { logout } from '../../api-actions.ts';
+import { fetchOfferObjectAction, logout } from '../../api-actions.ts';
 import { EmptyCityBlock } from '../Main-Empty/Main-Empty.tsx';
 //import { getToken } from '../../token.ts';
 type MainPageProps = {
@@ -31,22 +31,23 @@ export const MainPage : FC<MainPageProps> = ({
   const authStatus = useAppSelector(getAuthStatus);
   const authStatusMemo = useMemo(() => authStatus,[authStatus]);
   const userEmailMemo = useMemo(() => userEmail, [userEmail]);
-  const offerListMemo = useMemo(() => offers, [offers]);
+  //const offers = useAppSelector((state) => state.offerPage);
+  //const offerListMemo = useMemo(() => offers, [offers]);
   const cities = useAppSelector((state) => state.Cities);
   //  const isLoading = useAppSelector(getLoadingOfferPage);
   //  const offers = useAppSelector(getOffer);
-  //useEffect(() => {
-  //dispatch(fetchOfferObjectAction());
-  //}, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchOfferObjectAction());
+  }, [dispatch]);
   const handleUserSelectCity = (cityName: string) => {
     dispatch(changeCity(cityName));
     // dispatch(fillOffers());
   };
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
-
+  const favoritesLength = useAppSelector((state) => state.Favorites.favorites).length;
   const [sortType, setSortType] = useState<SortName>(SortName.popular);
   const sortedOffers = useMemo(
-    () => (offerListMemo ?? []).filter((offer) => offer.city.name === currentCity?.title).slice().sort((a, b) => {
+    () => (offers ?? []).filter((offer) => offer.city.name === currentCity?.title).slice().sort((a, b) => {
       switch (sortType) {
         case SortName.lowToHigh:
           return a.price - b.price;
@@ -58,7 +59,7 @@ export const MainPage : FC<MainPageProps> = ({
           return 0;
       }
     }),
-    [currentCity?.title, offerListMemo, sortType],
+    [currentCity?.title, offers, sortType],
   );
 
   return (
@@ -84,7 +85,7 @@ export const MainPage : FC<MainPageProps> = ({
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Main}>
                         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                         <span className="header__user-name user__name">{userEmailMemo}</span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favoritesLength}</span>
                       </Link>
 
                     </li> : null
@@ -123,16 +124,19 @@ export const MainPage : FC<MainPageProps> = ({
         </div>
         <div className="cities">
           {
-            !offerListMemo.length ?
+            !offers.length ?
               <EmptyCityBlock city={Cities[currentCity.title as keyof typeof Cities]}/>
               :
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offerListMemo?.filter((a) =>a.city.name === currentCity.title).length} places to stay in {currentCity.title}</b>
+                  <b className="places__found">{offers?.filter((a) =>a.city.name === currentCity.title).length} places to stay in {currentCity.title}</b>
 
 
-                  <FilterOffer currentSort={sortType} onSortChange={setSortType} /><div className="cities__places-list places__list tabs__content"><OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} /></div>
+                  <FilterOffer currentSort={sortType} onSortChange={setSortType} />
+                  <div className="cities__places-list places__list tabs__content">
+                    <OfferList offers={sortedOffers?.filter((a) => a.city.name === currentCity.title)} cardcssname={CardCssNameList.citiesList} setActiveOffer={setActiveOffer} />
+                  </div>
                 </section>
                 <div className="cities__right-section">
                   <section className="cities__map map">

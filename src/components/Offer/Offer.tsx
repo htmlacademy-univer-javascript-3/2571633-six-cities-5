@@ -33,9 +33,9 @@ export default function Offer () {
   const offers = useAppSelector((state) => state.offerPage);
   const comments:UserReview[] = useAppSelector((state) => state.offerIdDetails.comments);
 
-  const offersForMap: OfferIdDetails[] = useMemo(()=>nearbyOffers.slice(0,3).concat(offerdetails || []),[nearbyOffers, offerdetails]);
+  const offersForMap: OfferIdDetails[] = useMemo(()=>nearbyOffers?.slice(0,3).concat(offerdetails || []),[nearbyOffers, offerdetails]);
 
-
+  const favoritesLength = useAppSelector((state) => state.Favorites.favorites)?.length;
   const [ isFavorite, setisFavorite ] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -83,7 +83,7 @@ export default function Offer () {
                     <span className="header__user-name user__name">
                       {userEmail}
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoritesLength}</span>
 
                   </Link>
 
@@ -206,7 +206,7 @@ export default function Offer () {
             </div>
           </div>
           <section className="offer__map map">
-            {offers !== null && offers.offer !== null && offers.offer.length > 0 ?
+            {offers !== null && offers !== undefined && offers.offer !== null && offers.offer.length > 0 ?
               <Map
 
                 offers={offers === null ? undefined : offersForMap}
@@ -214,7 +214,7 @@ export default function Offer () {
                 selectedPoint={offers.offer?.[1]}
                 currentCity={currentCity.currentCity}
                 activeOffer={offers.offer === null ? null : offers?.offer[1].id}
-              /> : <Map offers={undefined} currentCity={currentCity.currentCity} activeOffer={null} selectedPoint={undefined} />}
+              /> : <Map offers={undefined} currentCity={currentCity?.currentCity} activeOffer={null} selectedPoint={undefined} />}
           </section>
         </section>
         <div className="container">

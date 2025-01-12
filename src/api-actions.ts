@@ -3,12 +3,13 @@ import { AxiosInstance } from 'axios';
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AppDispatch,
+  favoriteObject,
   OfferIdDetails,
   State,
   UserReview,
   UserReviewPost,
 } from './types/types';
-
+import { StatusCodes } from 'http-status-codes';
 //import {redirectToRoute} from './action';
 //import { saveToken, dropToken } from './token';
 import { APIRoute } from './const';
@@ -17,18 +18,20 @@ import { UserAuth, LoginAuth } from './types/types';
 import { createAPI } from './api';
 import { dropToken, saveToken } from './token';
 
-import { setOffer, setUser } from './action';
+import {
+  setFavorites,
+  setFavoritesLoadingStatus,
+  setOffer,
+  setUser,
+} from './action';
 
 export const api = createAPI();
 export const loadOfferNearby = createAction<OfferIdDetails[]>(
-
   'data/loadOfferNearby'
 );
 export const loadComments = createAction<UserReview[]>('data/loadComments');
 export const fetchOfferObjectAction = createAsyncThunk<
-
   OfferIdDetails[],
-
   undefined,
   {
     dispatch: AppDispatch;
@@ -36,7 +39,6 @@ export const fetchOfferObjectAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOffers', async () => {
-
   const { data } = await api.get<OfferIdDetails[]>(APIRoute.Offers);
 
   return data;
@@ -57,12 +59,10 @@ export const login = createAsyncThunk<
   UserAuth,
   LoginAuth,
   {
-
     state: State;
     extra: AxiosInstance;
   }
 >('user/login', async ({ email, password }, { extra: api }) => {
-
   const { data } = await api.post<UserAuth>(APIRoute.Login, {
     email,
     password,
@@ -138,12 +138,10 @@ export const fetchOfferNeibourhood = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('data/fetchOfferNearby', async (id, { dispatch, extra: api }) => {
-
   const { data } = await api.get<OfferIdDetails[]>(
     `${APIRoute.Offers}/${id}/nearby`
   );
   dispatch(loadOfferNearby(data?.slice(0, 3)));
-
 });
 
 export const fetchComments = createAsyncThunk<
@@ -174,6 +172,32 @@ export const postComment = createAsyncThunk<
   });
   dispatch(loadComments(data));
 });
+
+export const fetchFavorites = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>(
+  `${APIRoute.Favorites}/fetchfavorite`,
+  async (_arg, { dispatch, extra: api }) => {
+    dispatch(setFavoritesLoadingStatus('Pending'));
+    const { status, data } = await api.get<favoriteObject[]>(
+      APIRoute.Favorites
+    );
+    if (status === Number(StatusCodes.NOT_FOUND)) {
+      dispatch(setFavoritesLoadingStatus('Failure'));
+      return;
+    }
+
+    dispatch(setFavorites(data));
+    dispatch(setFavoritesLoadingStatus('Success'));
+  }
+);
+
 export const setIsOfferFavorite = createAsyncThunk<
   void,
   { offerId: string | undefined; isFavorite: boolean },
@@ -189,6 +213,6 @@ export const setIsOfferFavorite = createAsyncThunk<
       `/favorite/${offerId}/${Number(isFavorite)}`
     );
     dispatch(setOffer(data));
+    dispatch(fetchFavorites());
   }
 );
-

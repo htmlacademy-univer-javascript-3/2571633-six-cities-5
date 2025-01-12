@@ -73,13 +73,13 @@ describe('Application Routing', () => {
   });
 
   it('should render FavoritesPage when user navigate to "/favorites"', () => {
-    const withHistoryComponent = withHistory(<Favorite offers={null} />, mockHistory);
+    const withHistoryComponent = withHistory(<Favorite />, mockHistory);
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push(AppRoute.Favorites);
 
     render(withStoreComponent);
 
-    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
+    expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
   });
 
   it('should render NotFoundPage when user navigate to "/notFound"', () => {

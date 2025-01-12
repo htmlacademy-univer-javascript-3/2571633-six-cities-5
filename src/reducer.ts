@@ -7,6 +7,7 @@ import { offerPageId } from './store/offer-detail';
 import { user } from './store/user';
 import { CITYLIST } from './mock/cities';
 import { emptyOffer } from './mock/offers';
+import { favoritesReducer } from './store/favorites-reducer';
 //import { offerPageId } from './store/offer-detail';
 //import { AuthorizationStatus } from './const';
 
@@ -51,4 +52,6 @@ export const rootReducer = combineReducers({
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   offerIdDetails: offerPageId.reducer,
   user: user.reducer,
+  Favorites: favoritesReducer,
 });
+export type TRootReducer = ReturnType<typeof rootReducer>;

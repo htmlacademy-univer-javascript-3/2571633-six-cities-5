@@ -36,7 +36,7 @@ export const App: React.FC = () => {
           <Route key="/offer/:id" path="/offer/:id"
             element={<PrivateRoute key="/offer/:id" authState={authorizationStatus}>{<Offer />}</PrivateRoute>}
           />
-          <Route path="/favorites" element={<Favorite offers={offers.offer} />} />
+          <Route path="/favorites" element={<Favorite />} />
 
           <Route path="/NotFoundPage" element={<NotFoundPage />} />
 

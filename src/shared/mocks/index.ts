@@ -2,7 +2,7 @@ import { AuthorizationStatus } from '../../const';
 import { CITYLIST } from '../../mock/cities';
 import { emptyOffer } from '../../mock/offers';
 import { State } from '../../types/types';
-
+import { TRootReducer } from '../../reducer';
 export function makeFakeStore(initialState: Partial<State> = {}): State {
   return {
     Cities: {
@@ -76,6 +76,156 @@ export function makeFakeStore(initialState: Partial<State> = {}): State {
       postError: false,
 
     },
+    Favorites: {
+      favorites: [],
+      isFavoritesDataLoading: 'Success',
+    },
     ...initialState,
   };
 }
+
+export const mockState: TRootReducer = {
+  user: {
+    authorizationStatus: AuthorizationStatus.NoAuth,
+    userData: {
+      name: 'John Doe',
+      avatarUrl: '/img/avatar.jpg',
+      isPro: false,
+      email: 'john.doe@example.com',
+      token: 'token123',
+    },
+    postError: false,
+    userDataLoadingStatus: false,
+    userEmail: '',
+  },
+  Cities: {
+    currentCity: {
+      title: '',
+      lat: 0,
+      lng: 0,
+    },
+    cities: [],
+    offers: [],
+    offerIdDetails: {
+      id: '',
+      title: '',
+      type: '',
+      price: 0,
+      city: {
+        name: '',
+        location: {
+          latitude: 0,
+          longitude: 0,
+          zoom: 0,
+        },
+      },
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0,
+      },
+      isFavorite: false,
+      isPremium: false,
+      rating: 0,
+      description: '',
+      bedrooms: 0,
+      goods: [''],
+      host: {
+        name: '',
+        avatarUrl: '',
+        isPro: false,
+      },
+      images: [''],
+      maxAdults: 0,
+      previewImage: '',
+    },
+  },
+  currentCity: {
+    currentCity: {
+      title: 'Paris',
+      lat: 48.8566,
+      lng: 2.3522,
+    },
+    cities: [],
+    offers: [],
+    offerIdDetails: {
+      id: '',
+      title: '',
+      type: '',
+      price: 0,
+      city: {
+        name: '',
+        location: {
+          latitude: 0,
+          longitude: 0,
+          zoom: 0,
+        },
+      },
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 0,
+      },
+      isFavorite: false,
+      isPremium: false,
+      rating: 0,
+      description: '',
+      bedrooms: 0,
+      goods: [''],
+      host: {
+        name: '',
+        avatarUrl: '',
+        isPro: false,
+      },
+      images: [''],
+      maxAdults: 0,
+      previewImage: '',
+    },
+  },
+  offerPage: {
+    offer: [],
+    offerPageStatus: false,
+  },
+  offerIdDetails: {
+    offer: {
+      id: '1',
+      title: 'Test offer',
+      type: 'apartment',
+      price: 100,
+      isFavorite: false,
+      isPremium: true,
+      rating: 4.5,
+      city: {
+        name: 'Paris',
+        location: {
+          latitude: 48.8566,
+          longitude: 2.3522,
+          zoom: 0,
+        },
+      },
+      location: {
+        latitude: 48.8566,
+        longitude: 2.3522,
+        zoom: 0,
+      },
+      description: 'description',
+      bedrooms: 2,
+      goods: ['window'],
+      host: {
+        name: 'Aba',
+        avatarUrl: 'img/src1.jpg',
+        isPro: false,
+      },
+      images: ['img/src1.jpg'],
+      maxAdults: 2,
+      previewImage: '',
+    },
+    OfferIdDetailsPageStatus: false,
+    nearbyOffers: [],
+    comments: [],
+  },
+  Favorites: {
+    favorites: [],
+    isFavoritesDataLoading: 'Success',
+  },
+};

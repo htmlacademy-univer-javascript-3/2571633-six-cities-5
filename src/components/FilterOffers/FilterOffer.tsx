@@ -33,19 +33,18 @@ export const FilterOffer: React.FC<FilterOfferProps> = ({
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      {isActive &&
-        <ul className="places__options places__options--custom places__options--opened">
-          {SORT_TYPES.map((sort) => (
-            <li
-              key={sort.value}
-              className={`places__option ${currentSort === sort.value ? SORT_ACTIVE : ''}`}
-              tabIndex={0}
-              onClick={() => onSortChange(sort.value)}
-            >
-              {sort.label}
-            </li>
-          ))}
-        </ul>}
+      <ul className={`places__options places__options--custom ${isActive ? 'places__options--opened' : null}`}>
+        {SORT_TYPES.map((sort) => (
+          <li
+            key={sort.value}
+            className={`places__option ${currentSort === sort.value ? SORT_ACTIVE : ''}`}
+            tabIndex={0}
+            onClick={() => onSortChange(sort.value)}
+          >
+            {sort.label}
+          </li>
+        ))}
+      </ul>
     </form>
   );
 };
