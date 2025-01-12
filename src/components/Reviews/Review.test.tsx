@@ -4,7 +4,7 @@ import { Review } from './Review.tsx';
 import { UserReview} from '../../types/types';
 import { dateToMonthWordYear, dateToYearMonthDay } from '../../date.ts';
 
-vi.mock('../rating/rating', () => ({
+vi.mock('../Rating/Rating', () => ({
   Rating: () => <div data-testid="rating" />,
 }));
 
